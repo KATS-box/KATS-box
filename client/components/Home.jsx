@@ -1,41 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import Box from './Box.jsx'
 
-class Characters extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        chosenBox: 'japanese'
-      }
-    };
+const Home = props => (
+  <div>
+    <h2>please log in here to proceed to the shop</h2>
+    <Link to={'/login'}>
+      <button
+        type="button"
+      >
+      login
+      </button>
+    </Link>
+    <Link to={'/signup'}>
+      <button
+        type="button"
+      >
+      signup
+      </button>
+    </Link>
+    <Link to={'/shop'}>
+      <button
+        type="button"
+      >
+      go to shop
+      </button>
+    </Link>
+  </div>
+);
 
-  render() {
-
-    const loadBox = characters.map(props => {
-      return (
-        <Box
-        chosenBox={this.chosenBox}
-        />
-      );
-    });
-
-    return (
-      <section className="mainSection">
-        <header className="pageHeader">
-          <h2>Check out our unique curated asian snack boxes</h2>
-          <Link to={'/box'}>
-            <button
-              type="button"
-              className="btnSecondary"
-            >
-              Japanese Box
-            </button>
-          </Link>
-        </header>
-      </section>
-    );
-  }
-}
-
-export default Characters;
+export default Home;

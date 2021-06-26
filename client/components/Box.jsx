@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const Box = props => (
   <div>
-    this is in box
+    <h2>This is in box</h2>
+    <Link to={'/checkout'}>
+      <button
+        type="button"
+      >
+        Checkout
+      </button>
+    </Link>
   </div>
 );
 

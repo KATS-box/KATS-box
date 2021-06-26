@@ -2,14 +2,28 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require('morgan');
 require('dotenv').config();
-const db = require('./db');
+const path = require('path')
+const PORT = 3000;
+// const db = require('./db');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('../client/public'));
+express.static(path.resolve(__dirname, '../client'))
 
 
+app.get('/index.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/index.js'))
+})
+
+app.get('/', async (req, res) => {
+    try {
+        console.log('send me the html please')
+        await res.sendFile(path.join(__dirname, '../client/public/index.html'))
+    } catch(err) {
+        console.log('Error found in get method to /home',err); 
+    }
+})
 
 //home page: need boxes name and boxes image to render on page!
 app.get('/home', async (req, res) => {
@@ -140,3 +154,4 @@ app.get('home/:mixed-box', async (req, res) => {
     }
 });
 
+app.listen(PORT, () => console.log('listening in on '))
