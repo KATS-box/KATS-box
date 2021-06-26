@@ -1,0 +1,15 @@
+body {
+    background-color: #e1d3ed;
+}
+
+#loginpage {
+    display: flex;
+    justify-content: space-between;
+}
+
+#form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
