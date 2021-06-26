@@ -171,3 +171,7 @@ app.get('shop/:mixed-box', async (req, res) => {
 
 
 //to insert into the sales table when user checks out:
+
+app.listen(PORT,  ()=> {
+    console.log(`listening on port, ${PORT}`)
+});
