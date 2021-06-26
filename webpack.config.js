@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './client/index.js',
@@ -6,11 +7,20 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
+  
+  resolve: {
+    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    alias: {
+      react: path.join(__dirname, 'node_modules', 'react'),
+    },
+  },
+
   devServer: {
-    publicPath: '/build/',
+    publicPath: '/',
+    contentBase: "./public",
     hot: true,
     proxy: {
-        '/api': 'http://localhost:3000'
+        '/': 'http://localhost:3000'
     },
   },
   mode: process.env.NODE_ENV,

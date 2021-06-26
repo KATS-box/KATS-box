@@ -2,7 +2,7 @@
   "name": "kats-box",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "client/index.js",
   "scripts": {
     "start": "NODE_ENV=production nodemon ./server/server.js ",
     "build": "cross-env NODE_ENV=production webpack",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/KATS-box/KATS-box#readme",
   "dependencies": {
+    "@babel/core": "^7.14.6",
     "@babel/plugin-transform-async-to-generator": "^7.14.5",
     "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.7",
@@ -33,6 +34,7 @@
     "dotenv": "^10.0.0",
     "eslint": "^7.29.0",
     "express": "^4.17.1",
+    "html-webpack-plugin": "^5.3.2",
     "morgan": "^1.10.0",
     "node": "^16.3.0",
     "nodemon": "^2.0.7",

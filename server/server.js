@@ -2,12 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require('morgan');
 require('dotenv').config();
-const db = require('./db');
+const path = require('path')
+const PORT = 3000;
+// const db = require('./db');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('../client/public'));
+express.static(path.resolve(__dirname, '../client'))
 
 
 //home page: need boxes name and boxes image to render on page!
