@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header.jsx'
 import ShoppingCartModal from './ShoppingCartModal.jsx';
+import Box from './Box.jsx'
 
 class Shop extends Component {
   constructor(props) {
@@ -47,7 +48,6 @@ class Shop extends Component {
               boxList: this.state.boxList[0],
               show: false,
             },
-            showModal: this.showModal,
             }}>
             <button
               type="button"
