@@ -30,13 +30,11 @@ class Shop extends Component {
         <Header />
 
 
-
-        <ShoppingCartModal show={this.state.show}>This is your shopping cart</ShoppingCartModal>
         <button onClick={e => {
               this.showModal();
          }}
           > Shopping Cart </button>
-
+        <ShoppingCartModal show={this.state.show}>This is your shopping cart</ShoppingCartModal>
 
           
         <header className="pageHeader">

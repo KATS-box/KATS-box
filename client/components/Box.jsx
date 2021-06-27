@@ -27,11 +27,13 @@ class Box extends Component {
       <div>
         <Header />
 
-        <ShoppingCartModal show={this.state.show}>This is your shopping cart</ShoppingCartModal>
+
             <button onClick={e => {
                   this.showModal();
             }}
               > Shopping Cart </button>
+            <ShoppingCartModal show={this.state.show}>This is your shopping cart</ShoppingCartModal>
+
 
         <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2>
         <div>
