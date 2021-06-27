@@ -1,69 +1,53 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header.jsx'
+import ShoppingCartModal from './ShoppingCartModal.jsx';
 
 class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
         chosenBox: 0,
-        boxList:['japanese', 'korean', 'chinese', 'mixed'],
+        boxList:['Japanese', 'Korean', 'Chinese', 'Mixed'],
         loggedIn: false,
         cart:[],
-        modalState: {
-          open: false,
-          type: null,
-          position: { top: 0, left: 0 },
-          id: null
-        },
+        show: false,
       }
-      this.openModal = this.openModal.bind(this);
-      this.closeModal = this.closeModal.bind(this);
     };
 
-    openModal(type, position, id) {
+    showModal = e => {
       this.setState({
-        modalState: {
-          ...this.state.modalState,
-          open: true,
-          type,
-          position,
-          id
-        }
+        show: !this.state.show
       });
-    }
-  
-    closeModal() {
-      this.setState({
-        modalState: {
-          ...this.state.modalState,
-          open: false
-        }
-      });
-    }
+    };
+
 
   render() {
-
-    // const loadBox = this.chosenBox.map(props => {
-    //   return (
-    //     <Box
-    //     chosenBox={this.chosenBox}
-    //     />
-    //   );
-    // });
 
     return (
       <section className="mainSection">
         <Header />
+
+
+
+        <ShoppingCartModal show={this.state.show}>This is your shopping cart</ShoppingCartModal>
+        <button onClick={e => {
+              this.showModal();
+         }}
+          > Shopping Cart </button>
+
+
+          
         <header className="pageHeader">
-          <h2>Snacks for Kaden</h2>
-          <h4>curated by Ivy</h4>
+          <h2>Kaden's Asian Tasty Snacks</h2>
           <Link to={{
             pathname:'/shop/box/:japanese-box',
             state: {
               chosenBox: 0,
-              boxList: this.state.boxList[0]
+              boxList: this.state.boxList[0],
+              show: false,
             },
+            showModal: this.showModal,
             }}>
             <button
               type="button"
@@ -75,7 +59,8 @@ class Shop extends Component {
             pathname:'/shop/box/:korean-box',
             state: {
               chosenBox: 1,
-              boxList: this.state.boxList[1]
+              boxList: this.state.boxList[1],
+              show: false,
             },
             }}>
             <button
@@ -88,7 +73,8 @@ class Shop extends Component {
             pathname:'/shop/box/:chinese-box',
             state: {
               chosenBox: 2,
-              boxList: this.state.boxList[2]
+              boxList: this.state.boxList[2],
+              show: false,
             },
             }}>
             <button
@@ -101,7 +87,8 @@ class Shop extends Component {
             pathname:'/shop/box/:mixed-box',
             state: {
               chosenBox: 3,
-              boxList: this.state.boxList[3]
+              boxList: this.state.boxList[3],
+              show: false,
             },
             }}>
             <button
