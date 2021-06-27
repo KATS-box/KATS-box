@@ -11,6 +11,18 @@ app.use(cors());
 app.use(express.json());
 express.static(path.resolve(__dirname, '../client'))
 
+app.get('/index.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/index.js'))
+})
+
+app.get('/', async (req, res) => {
+    try {
+        console.log('send me the html please')
+        await res.sendFile(path.join(__dirname, '../client/public/index.html'))
+    } catch(err) {
+        console.log('Error found in get method to /home',err); 
+    }
+})
 
 //home page: need boxes name and boxes image to render on page!
 app.get('/shop', async (req, res) => {

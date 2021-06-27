@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory  } from 'react-router-dom';
 import Header from './Header.jsx'
 
-const Login = props => (
+const Login = props => {
+  const history = useHistory();
+
+  return (
   <div id='loginpage'>
     <Header />
     <Link to={'/shop'}>
@@ -12,29 +15,20 @@ const Login = props => (
       Just let me into the Shop
       </button>
     </Link>
-    <ul class="nav nav-tabs">
+    <ul className="nav nav-tabs">
       <li><a href="#a" data-toggle="tab">Log In</a></li>
       <li><a href="#b" data-toggle="tab">Sign Up</a></li>
     </ul>
 
     <div className="tab-content">
       <div className="tab-pane active" id="a">
-        <form method="POST" action='/login'>
-        <input className='username' type='text' placeholder='username'/>
-        <input className='pass' type='text' placeholder='password'/>
-        <input 
-        type='submit' 
-        value="Log In" 
-        onClick={() => 
-          <Link to={'/shop'}>
-          <button 
-          type="button"
-          >
-          Login
-          </button>
-        </Link>
-        }
-        ></input>
+        <form method="POST" action='/login' onSubmit={() => history.push('/shop')}>
+          <input className='username' type='text' placeholder='username'/>
+          <input className='pass' type='text' placeholder='password'/>
+          <input 
+          type='submit' 
+          value="Log In" 
+          ></input>
         </form>
       </div>
 
@@ -49,13 +43,7 @@ const Login = props => (
           type='submit' 
           value="Sign In" 
           onClick={
-            <Link to={'/shop'}>
-            <button 
-            type="button"
-            >
-            Login
-            </button>
-          </Link>
+            () => history.push('/shop')
           }
           ></input>
         </form>
@@ -76,6 +64,6 @@ const Login = props => (
       <img src={`/uploads/${img.img.path}`} /> */}
     </div>
   </div>
-);
+)};
 
 export default Login;
