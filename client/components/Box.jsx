@@ -29,7 +29,6 @@ class Box extends Component {
 
   render() {
 
-
     const urls = this.state.itemurls
     const items = this.state.items
     console.log(urls,items)
@@ -46,7 +45,7 @@ class Box extends Component {
         )
     })
 
-
+    let cartContents;
 
     return (
       <div>
@@ -57,31 +56,38 @@ class Box extends Component {
           <i className="fas fa-shopping-bag"
           onClick={e => {
             this.showModal();
+            fetch('/getCart')
+            .then(data => data.json())
+            .then(data => {
+              console.log(data)
+              cartContents = data
+            })
           }}
           ></i>
 
           <ShoppingCartModal show={this.state.show}>
             <div id='modal'>
             
-          my cart ({'number of items in cart from database'})
-          <hr/>
+              my cart ({'number of items in cart from database'})
+              <hr/>
 
-         {'IMPORT ITEM HERE'}
-          {/* 
-          fetch('/getCart')
-          .then(data => data.json())
-          .then()
-          .catch(err => console.log('error getting cart',err))
-          */}
-         <hr/>
-         Subtotal: {'whatever is the total price added from database'}
-         <Link to={'/shop/checkout'}>
-            <button
-              type="button"
-            >
-              go to checkout
-            </button>
-          </Link>
+            {'IMPORT ITEM HERE'}
+            {cartContents}
+              {/* 
+              fetch('/getCart')
+              .then(data => data.json())
+              .then()
+              .catch(err => console.log('error getting cart',err))
+              */}
+            <hr/>
+            Subtotal: {'whatever is the total price added from database'}
+            <Link to={'/shop/checkout'}>
+              <button
+                type="button"
+              >
+                go to checkout
+              </button>
+            </Link>
 
           </div>
         </ShoppingCartModal>
@@ -130,7 +136,7 @@ class Box extends Component {
 
 
             
-            <form className='cartform' method="PUT" action={`/shop/${this.state.boxList}Box`}>
+            <form className='cartform' method="POST" action={`/${this.state.boxList}Box`}>
               <label>Select a size</label>
               <div className="btn-group" data-toggle="buttons">
                 <label className="btn btn-primary">

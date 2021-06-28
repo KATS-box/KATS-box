@@ -18,6 +18,7 @@ module.exports = {
   devServer: {
     publicPath: '/',
     contentBase: "./public",
+    historyApiFallback: true,
     hot: true,
     proxy: {
         '/': 'http://localhost:3000'

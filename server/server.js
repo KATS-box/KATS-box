@@ -69,7 +69,7 @@ app.post('/signup', async (req, res, next) => {
             //create shopping cart for user upon sign up
             const result3 = await db.query('select userid from users where username = $1', [username]);
 
-            const newCart = await db.query("INSERT INTO carts (price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox, username) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, n$10, $11, $12, $13, $14) returning *;", ([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, username]));
+            const newCart = await db.query("INSERT INTO carts (price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox, username) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", ([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, username]));
 
             res.status(200).cookie('username', req.body.username).redirect('/shop');
         //something already exists in the database:
@@ -288,7 +288,7 @@ app.post('shop/checkout', async (req, res) => {
         const results = await db.query("INSERT INTO sales (userid, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallcbox, mediumcbox, largecbox, smallmbox, mediummbox, largembox, progress, price) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *;", [req.body.userid, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largekbox, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox, 'order received', req.body.price]);
 
         // Then clear the cart;
-        const results = await db.query("UPDATE carts SET smallcbox=$1, mediumcbox=$2, largecbox=$3, smalljbox=$4, mediumjbox=$5, largejbox=$6, smallkbox=$7, mediumkbox=$8, largekbox=$9, smallmbox=$10, mediummbox=$11, largembox=$12 WHERE username=$13 returning *;",[0,0,0,0,0,0,0,0,0,0,0,0,username]);
+        const results1 = await db.query("UPDATE carts SET smallcbox=$1, mediumcbox=$2, largecbox=$3, smalljbox=$4, mediumjbox=$5, largejbox=$6, smallkbox=$7, mediumkbox=$8, largekbox=$9, smallmbox=$10, mediummbox=$11, largembox=$12 WHERE username=$13 returning *;",[0,0,0,0,0,0,0,0,0,0,0,0,username]);
         res.status(200).json(results.rows[0])
 
         //then send mail:
@@ -316,7 +316,7 @@ app.post('shop/checkout', async (req, res) => {
 
 
 // get cart when click on the bag icon: 
-app.get('/shop/bag/:id', async (req, res) => {
+app.get('/getCart', async (req, res) => {
     try{
         
             const results = await db.query("select * from carts WHERE userid = $1;", [req.params]);
@@ -355,12 +355,34 @@ app.put('/shop/KoreanBox', async (req, res) => {
 
 
 //to get korean box and its items to show up on the page, when you click on it!
-app.put('/shop/JapaneseBox', async (req, res) => {
+app.post('/JapaneseBox', async (req, res) => {
+    let obj = Object.keys(req.body);
+    let boxSize;
+    let quantity;
+    let username;
+    if(obj.length === 4) {
+        if(obj[0] === '1') {
+            console.log('its 1')
+            boxSize = 1
+        } else {
+            console.log('its 3')
+            boxSize = 3
+        }
+        quantity = req.body[obj[2]];
+        username = req.body[obj[3]];
+    
+    } else if (obj.length !== 4){
+        console.log('its 2')
+        boxSize = 2
+        quantity = req.body[obj[1]];
+        username = req.body[obj[2]];
+    }
+    console.log(req.body, obj)
+    console.log(boxSize,quantity,username)
 
-    let obj = Object.keys(req.query);
-    let boxSize = obj[0];
-    let quantity = req.query[obj[1]];
-    let username = req.query[obj[2]];
+    // let boxSize = obj[0];
+    // let quantity = req.body[req.body[1]];
+    // let username = req.body[obj[2]];
     try{
         if(boxSize === '1') {
             let updateRow = smalljbox;
