@@ -22,8 +22,7 @@ class Box extends Component {
       price:'$39.95',
       cartItemsState:[],
       cartSubtotal: 0,
-      boxListurls:['https://vickyagain.files.wordpress.com/2020/10/east-asian-snacks.png?w=1024', 'https://d15kbsmiqz0zlr.cloudfront.net/wp-content/uploads/2016/05/snack-thumbnail-scaled.jpg'
-        , 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://storage.googleapis.com/smstl/202122/1759/asian-snacks-market-grocery-store-st-louis-lg.jpg'],
+      boxList:['Japanese', 'Korean', 'Chinese', 'Mixed'],
     }
   }
 
@@ -60,26 +59,30 @@ class Box extends Component {
         console.log(el,cartContents[el])
         if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
           let size;
+          let sizePrice;
           if(el[0] === 's') {
-            subTotal += 30.95
+            sizePrice = 30.95
+            subTotal += 30.95 * cartContents[el]
             size = 'small'
           }
           if(el[0] === 'm') {
-            subTotal += 39.95
+            sizePrice = 39.95
+            subTotal += 39.95 * cartContents[el]
             size = 'medium'
           }
           if(el[0] === 'l') {
-            subTotal += 47.95
+            sizePrice = 47.95
+            subTotal += 47.95 * cartContents[el]
             size = 'large'
           }
 
           const itemString = el.slice(-4)
 
           let box;
-          if(itemString[0] === 'j') box = 1
-          if(itemString[0] === 'k') box = 2
-          if(itemString[0] === 'c') box = 3
-          if(itemString[0] === 'm') box = 4
+          if(itemString[0] === 'j') box = 0
+          if(itemString[0] === 'k') box = 1
+          if(itemString[0] === 'c') box = 2
+          if(itemString[0] === 'm') box = 3
           console.log(this.state.boxListurls[box])
 
           cartItems.push(    
@@ -92,6 +95,8 @@ class Box extends Component {
                   size:{size} 
                   <br/>
                   qty: {cartContents[el]}
+                  <br/>
+                  price: ${(sizePrice * cartContents[el]).toFixed(2)}
                   </p>
               </div>
               {/* <button

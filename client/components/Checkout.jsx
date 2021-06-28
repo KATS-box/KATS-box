@@ -28,26 +28,30 @@ class Checkout extends Component {
         console.log(el,cartContents[el])
         if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
           let size;
+          let sizePrice;
           if(el[0] === 's') {
-            subTotal += 30.95
+            sizePrice = 30.95
+            subTotal += 30.95 * cartContents[el]
             size = 'small'
           }
           if(el[0] === 'm') {
-            subTotal += 39.95
+            sizePrice = 39.95
+            subTotal += 39.95 * cartContents[el]
             size = 'medium'
           }
           if(el[0] === 'l') {
-            subTotal += 47.95
+            sizePrice = 47.95
+            subTotal += 47.95 * cartContents[el]
             size = 'large'
           }
 
           const itemString = el.slice(-4)
 
           let box;
-          if(itemString[0] === 'j') box = 1
-          if(itemString[0] === 'k') box = 2
-          if(itemString[0] === 'c') box = 3
-          if(itemString[0] === 'm') box = 4
+          if(itemString[0] === 'j') box = 0
+          if(itemString[0] === 'k') box = 1
+          if(itemString[0] === 'c') box = 2
+          if(itemString[0] === 'm') box = 3
           console.log(this.state.boxListurls[box])
 
           cartItems.push(    
@@ -60,6 +64,8 @@ class Checkout extends Component {
                   size:{size} 
                   <br/>
                   qty: {cartContents[el]}
+                  <br/>
+                  price: ${(sizePrice * cartContents[el]).toFixed(2)}
                   </p>
               </div>
               {/* <button
