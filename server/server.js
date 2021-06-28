@@ -288,8 +288,8 @@ app.post('shop/checkout', async (req, res) => {
         const results = await db.query("INSERT INTO sales (userid, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallcbox, mediumcbox, largecbox, smallmbox, mediummbox, largembox, progress, price) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *;", [req.body.userid, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largekbox, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox, 'order received', req.body.price]);
 
         // Then clear the cart;
-        const results = await db.query("UPDATE carts SET smallcbox=$1, mediumcbox=$2, largecbox=$3, smalljbox=$4, mediumjbox=$5, largejbox=$6, smallkbox=$7, mediumkbox=$8, largekbox=$9, smallmbox=$10, mediummbox=$11, largembox=$12 WHERE username=$13 returning *;",[0,0,0,0,0,0,0,0,0,0,0,0,username]);
-        res.status(200).json(results.rows[0])
+        const clearcart = await db.query("UPDATE carts SET smallcbox=$1, mediumcbox=$2, largecbox=$3, smalljbox=$4, mediumjbox=$5, largejbox=$6, smallkbox=$7, mediumkbox=$8, largekbox=$9, smallmbox=$10, mediummbox=$11, largembox=$12 WHERE username=$13 returning *;",[0,0,0,0,0,0,0,0,0,0,0,0,username]);
+        res.status(200).json(clearcart.rows[0])
 
         //then send mail:
         const options = {
@@ -354,10 +354,18 @@ app.put('/shop/KoreanBox', async (req, res) => {
 
 
 
-//to get korean box and its items to show up on the page, when you click on it!
-app.put('/shop/JapaneseBox', async (req, res) => {
+app.post('/JapaneseBox', async (req, res) => {
 
-    let obj = Object.keys(req.query);
+    let obj = Object.keys(req.body);
+
+    if (obj.length === 4) {
+        if(obj[0] === 1) {
+            boxSize = sma
+        }
+
+    }
+
+
     let boxSize = obj[0];
     let quantity = req.query[obj[1]];
     let username = req.query[obj[2]];
@@ -430,6 +438,32 @@ app.put('/shop/MixedBox', async (req, res) => {
         console.log('Error found in get method to /shop/MixedBox', err); 
     }
 });
+
+app.put('/shop/MixedBox/Delete', async (req, res) => {
+
+    let obj = Object.keys(req.query);
+    let boxSize = obj[0];
+    let quantity = req.query[obj[1]];
+    let username = req.query[obj[2]];
+    try{
+        if(boxSize === '1') {
+            let updateRow = smallmbox;
+            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
+            res.status(200).json(results.rows[0])
+        } else if (boxSize === '2') {
+            let updateRow = mediummbox;
+            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
+            res.status(200).json(results.rows[0])
+        } else if (boxSize === '3') {
+            let updateRow = largembox;
+            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
+            res.status(200).json(results.rows[0])
+        }
+    } catch(err) {
+        console.log('Error found in get method to /shop/MixedBox', err); 
+    }
+});
+
 
 app.listen(PORT,  ()=> {
     console.log(`listening on port, ${PORT}`)
