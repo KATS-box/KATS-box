@@ -115,9 +115,6 @@ class Box extends Component {
             {/* <h4>This is the {this.state.boxList} snack box</h4> */}
             <p>{this.state.desc}</p>
             
-            <div className='itemImages'>
-
-            </div>
 
             {/* this was the button to fetch from the db, I couldnt get it working on the s m l form below */}
             {/* <button
@@ -195,7 +192,9 @@ class Box extends Component {
             </form>
           </div>
         </div>
-        {itemImages}
+        <div className='all-items'>
+          {itemImages}
+        </div>
         <Link to={'/shop/checkout'}>
           <button
             type="button"

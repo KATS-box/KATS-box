@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from './Header.jsx'
 import ShoppingCartModal from './ShoppingCartModal.jsx';
 import Box from './Box.jsx'
+// import koreanbox from './koreanbox.jpg'
 
 class Shop extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class Shop extends Component {
     this.state = {
         chosenBox: 0,
         boxList:['Japanese', 'Korean', 'Chinese', 'Mixed'],
-        boxListurls:['https://images-na.ssl-images-amazon.com/images/I/A1eww2XijJL._SX569_.jpg', './koreanbox.jpg', 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://storage.googleapis.com/smstl/202122/1759/asian-snacks-market-grocery-store-st-louis-lg.jpg'],
+        boxListurls:['https://vickyagain.files.wordpress.com/2020/10/east-asian-snacks.png?w=1024', 'https://d15kbsmiqz0zlr.cloudfront.net/wp-content/uploads/2016/05/snack-thumbnail-scaled.jpg'
+        , 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://storage.googleapis.com/smstl/202122/1759/asian-snacks-market-grocery-store-st-louis-lg.jpg'],
         loggedIn: false,
         cart:[],
         show: false,
