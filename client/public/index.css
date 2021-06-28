@@ -11,6 +11,24 @@ body {
     background-color: #F9F9F9;
 }
 
+
+
+.all-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fa-shopping-bag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.items {
+    padding: 10px;
+    margin: 10px
+}
+
 #loginpage {
     display: flex;
     flex-direction: column;
@@ -24,15 +42,16 @@ button {
 
 .allCards {
     
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     row-gap: 0;
-    column-gap: 0;
-    /* display: flex;
+    column-gap: 0; */
+    display: flex;
     flex-wrap: wrap;
     height: fit-content;
-    width: fit-content; */
+    width: fit-content;
+    justify-content: space-around;
 }
 
 .card-text {
@@ -42,6 +61,9 @@ button {
 .card {
     background-color: rgba(181, 255, 255, 0.616);
     display: flex;
+    padding: 10px;
+    margin: 10px;
+    min-height: 400px;
 }
 
 #moreInfo {
@@ -65,6 +87,8 @@ button {
     box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
     width: 20rem;
     z-index: 1000;
+    right: 10px;
+    top: 30px;
 }
 
 img {

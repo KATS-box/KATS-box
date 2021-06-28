@@ -115,9 +115,6 @@ class Box extends Component {
             <h2>{this.state.price}</h2>
             <p>{this.state.desc}</p>
             
-            <div className='itemImages'>
-
-            </div>
 
             <form className='cartform' method="POST" action={`/${this.state.boxList}Box`}>
               <label>Select a size</label>
@@ -178,7 +175,9 @@ class Box extends Component {
             </form>
           </div>
         </div>
-        {itemImages}
+        <div className='all-items'>
+          {itemImages}
+        </div>
         <Link to={'/shop/checkout'}>
           <button
             type="button"
