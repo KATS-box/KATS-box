@@ -12,9 +12,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 express.static(path.resolve(__dirname, '../client'))
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 100000000000}));
-
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 100000000000}));
@@ -72,7 +69,7 @@ app.post('/signup', async (req, res, next) => {
             //create shopping cart for user upon sign up
             const result3 = await db.query('select userid from users where username = $1', [username]);
 
-            const newCart = await db.query("INSERT INTO carts (userid, price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", [result3.rows[0], 0, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largelbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox]);
+            const newCart = await db.query("INSERT INTO carts (userid, price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", ([parseInt(result3.rows[0]), 0, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largelbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox]));
 
             res.status(200).cookie('username', req.body.username).redirect('/shop');
         //something already exists in the database:
