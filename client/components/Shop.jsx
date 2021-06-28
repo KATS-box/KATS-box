@@ -40,15 +40,40 @@ class Shop extends Component {
       for(const el in cartContents) {
         console.log(el,cartContents[el])
         if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
+          let size;
+          if(el[0] === 's') {
+            subTotal += 30.95
+            size = 'small'
+          }
+          if(el[0] === 'm') {
+            subTotal += 39.95
+            size = 'medium'
+          }
+          if(el[0] === 'l') {
+            subTotal += 47.95
+            size = 'large'
+          }
 
-          if(el[0] === 's') subTotal += 30.95
-          if(el[0] === 'm') subTotal += 39.95
-          if(el[0] === 'l') subTotal += 47.95
+          const itemString = el.slice(-4)
+
+          let box;
+          if(itemString[0] === 'j') box = 1
+          if(itemString[0] === 'k') box = 2
+          if(itemString[0] === 'c') box = 3
+          if(itemString[0] === 'm') box = 4
+          console.log(this.state.boxListurls[box])
 
           cartItems.push(    
             <div>    
               <div className='cartItems'>
-                <p>{el}:{cartContents[el]}</p>
+                <img src={this.state.boxListurls[box]}/>
+                <p>
+                  box:{this.state.boxList[box]} 
+                  <br/>
+                  size:{size} 
+                  <br/>
+                  qty: {cartContents[el]}
+                  </p>
               </div>
               {/* <button
               onClick={() => {

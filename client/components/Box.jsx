@@ -22,6 +22,8 @@ class Box extends Component {
       price:'$39.95',
       cartItemsState:[],
       cartSubtotal: 0,
+      boxListurls:['https://vickyagain.files.wordpress.com/2020/10/east-asian-snacks.png?w=1024', 'https://d15kbsmiqz0zlr.cloudfront.net/wp-content/uploads/2016/05/snack-thumbnail-scaled.jpg'
+        , 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://storage.googleapis.com/smstl/202122/1759/asian-snacks-market-grocery-store-st-louis-lg.jpg'],
     }
   }
 
@@ -57,25 +59,47 @@ class Box extends Component {
       for(const el in cartContents) {
         console.log(el,cartContents[el])
         if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
+          let size;
+          if(el[0] === 's') {
+            subTotal += 30.95
+            size = 'small'
+          }
+          if(el[0] === 'm') {
+            subTotal += 39.95
+            size = 'medium'
+          }
+          if(el[0] === 'l') {
+            subTotal += 47.95
+            size = 'large'
+          }
 
-          if(el[0] === 's') subTotal += 30.95
-          if(el[0] === 'm') subTotal += 39.95
-          if(el[0] === 'l') subTotal += 47.95
+          const itemString = el.slice(-4)
+
+          let box;
+          if(itemString[0] === 'j') box = 1
+          if(itemString[0] === 'k') box = 2
+          if(itemString[0] === 'c') box = 3
+          if(itemString[0] === 'm') box = 4
+          console.log(this.state.boxListurls[box])
 
           cartItems.push(    
             <div>    
               <div className='cartItems'>
-                <p>{el}:{cartContents[el]}</p>
+                <img src={this.state.boxListurls[box]}/>
+                <p>
+                  box:{this.state.boxList[box]} 
+                  <br/>
+                  size:{size} 
+                  <br/>
+                  qty: {cartContents[el]}
+                  </p>
               </div>
               {/* <button
               onClick={() => {
                 fetch('/deleteItem', {
-                  method: 'PUT',
+                  method: 'DELETE',
                   headers: 'application/json',
-                  body: {
-                    item: cartContents[el],
-                    username: document.cookie.split('=')[1],
-                  }
+                  body: cartContents[el],
                 })
               }}
               >
