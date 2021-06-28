@@ -50,7 +50,7 @@ class Shop extends Component {
               <div className='cartItems'>
                 <p>{el}:{cartContents[el]}</p>
               </div>
-              <button
+              {/* <button
               onClick={() => {
                 fetch('/deleteItem', {
                   method: 'DELETE',
@@ -60,7 +60,17 @@ class Shop extends Component {
               }}
               >
                 delete
-              </button>
+              </button> */}
+              <i class="fas fa-trash-alt"
+              onClick={() => {
+                fetch('/deleteItem', {
+                  method: 'DELETE',
+                  headers: 'application/json',
+                  body: cartContents[el],
+                })
+              }}
+              ></i>
+
             </div>
           )
         }

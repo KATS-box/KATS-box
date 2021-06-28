@@ -304,14 +304,14 @@ app.get('/largembox', async (req, res) => {
 
 
 //post to checkout page, to add into the sales table in database
-app.post('shop/checkout', async (req, res) => {
+app.post('/checkout', async (req, res) => {
     try{
-
+        console.log(req.body)
         const email = req.body.email;
         const username = req.body.username; 
         const total = req.body.total;
 
-        const results = await db.query("INSERT INTO sales (userid, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallcbox, mediumcbox, largecbox, smallmbox, mediummbox, largembox, progress, price) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *;", [req.body.userid, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largekbox, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox, 'order received', req.body.price]);
+        const results = await db.query("INSERT INTO sales (username, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallcbox, mediumcbox, largecbox, smallmbox, mediummbox, largembox, progress, price) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *;", [req.body.username, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largekbox, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox, 'order received', req.body.price]);
 
         // Then clear the cart;
         const clearCart = await db.query("UPDATE carts SET smallcbox=$1, mediumcbox=$2, largecbox=$3, smalljbox=$4, mediumjbox=$5, largejbox=$6, smallkbox=$7, mediumkbox=$8, largekbox=$9, smallmbox=$10, mediummbox=$11, largembox=$12 WHERE username=$13 returning *;",[0,0,0,0,0,0,0,0,0,0,0,0,username]);
@@ -579,8 +579,29 @@ app.put('/deleteItem', async (req, res) => {
     }
 });
 
+app.post('/subscribe', async (req, res) => {
 
-
+    let username = req.body.username;
+    let name = req.body.name;
+    let email = req.body.mail;
+    try{
+        const options = {
+            from: "katsbox118@outlook.com",
+            to: email,
+            subject: `Thank you for subscribing, ${username}`,
+            text: `Hi, ${name}`
+        }
+        
+        transporter.sendMail(options, function(err, info) {
+            if (err) {
+                console.log(err);
+                return;
+            } console.log("Sent", info.response)
+        });
+    } catch(err) {
+        console.log('Error found in post method to /subscribe', err); 
+    } 
+});
 
 app.listen(PORT,  ()=> {
     console.log(`listening on port, ${PORT}`)

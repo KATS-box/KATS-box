@@ -10,6 +10,8 @@ class Checkout extends Component {
     this.state = {  
       cartItemsState:[],
       cartSubtotal: 0,
+      boxListurls:['https://vickyagain.files.wordpress.com/2020/10/east-asian-snacks.png?w=1024', 'https://d15kbsmiqz0zlr.cloudfront.net/wp-content/uploads/2016/05/snack-thumbnail-scaled.jpg'
+        , 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://storage.googleapis.com/smstl/202122/1759/asian-snacks-market-grocery-store-st-louis-lg.jpg'],
     }
   }
 
@@ -28,6 +30,11 @@ class Checkout extends Component {
           if(el[0] === 's') subTotal += 30.95
           if(el[0] === 'm') subTotal += 39.95
           if(el[0] === 'l') subTotal += 47.95
+
+          console.log('this is el -5', el.slice(-5))
+          const itemString = el.slice(-5)
+
+          // if()
 
           cartItems.push(    
             <div>    
@@ -97,34 +104,34 @@ class Checkout extends Component {
           </div>
 
     <div className="mb-2 top">
-            <form method="POST" action='/shop/checkout'>
-
+            <form method="POST" action='/checkout'>
+              <input type="hidden" name="username" value={document.cookie.split('=')[1]}/>
               <h3>Customer Information</h3>
                 <div className="form-row">
                     <div className="form-group col-8">
                         <label htmlFor="firstname"></label>
-                        <input id="firstname" placeholder="First Name *" type="text" required className="form-control"/>
+                        <input name="firstname" id="firstname" placeholder="First Name *" type="text" required className="form-control"/>
                     </div>
 
                     <div className="form-group col-8">
                         <label htmlFor="lastname"></label>
-                        <input id="lastname" placeholder="Last Name *" type="text" required className="form-control"/>
+                        <input name= "lastname" id="lastname" placeholder="Last Name *" type="text" required className="form-control"/>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="Address"></label>
-                        <input id="Address" placeholder="Address Line 1 *" type="text" required className="form-control"></input>
+                        <input name= "Address" id="Address" placeholder="Address Line 1 *" type="text" required className="form-control"></input>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="Address2"></label>
-                        <input id="Address2" placeholder="APT, SUITE, ETC. (OPTIONAL)" type="text" className="form-control"></input>
+                        <input name= "Address2" id="Address2" placeholder="APT, SUITE, ETC. (OPTIONAL)" type="text" className="form-control"></input>
                     </div>
 
                 <div>
                   <div className="form-group">
                       <label htmlFor="city"></label>
-                      <input id="city" type="text" placeholder="City *" className="form-control" required ></input>
+                      <input name= "city" id="city" type="text" placeholder="City *" className="form-control" required ></input>
                   </div>
                   <br></br>
                   <label htmlFor="state"></label>
@@ -185,40 +192,40 @@ class Checkout extends Component {
 
                   <div className="form-group">
                         <label htmlFor="zipcode"></label>
-                        <input id="zipcode" placeholder="Zip Code *" className="form-control" required type="number"></input>
+                        <input name= "zipcode" id="zipcode" placeholder="Zip Code *" className="form-control" required type="number"></input>
                     </div>
                 </div>
 
                 <div className="form-group">
                       <label htmlFor="phone"></label>
-                      <input type="tel" id="phone" placeholder="Phone Number" className="form-control"></input>
+                      <input name= "tel" type="tel" id="phone" placeholder="Phone Number" className="form-control"></input>
                   </div>
 
                   <div className="form-group">
                       <label htmlFor="email"></label>
-                      <input type="email" id="email" placeholder="Email Address *" required className="form-control"></input>
+                      <input name= "email" type="email" id="email" placeholder="Email Address *" required className="form-control"></input>
                   </div>
 
                   <h3>Payment Information</h3>
                   <div className="form-group">
                       <label htmlFor="cardname"></label>
-                      <input type="number" id="cardname" placeholder="Name on Card *" required className="form-control"></input>
+                      <input name= "cardname" type="number" id="cardname" placeholder="Name on Card *" required className="form-control"></input>
                   </div>
 
                   <div className="form-group">
                       <label htmlFor="cardnumber"></label>
-                      <input type="number" id="cardnumber" placeholder="Card Number *" required className="form-control"></input>
+                      <input name= "cardnumber" type="number" id="cardnumber" placeholder="Card Number *" required className="form-control"></input>
                   </div>
 
                   <div>
                   <div className="form-group">
                       <label htmlFor="cardexpire"></label>
-                      <input type="text" id="cardexpire" placeholder="MM / YY *" required className="form-control"></input>
+                      <input name= "cardexpire" type="text" id="cardexpire" placeholder="MM / YY *" required className="form-control"></input>
                   </div>
 
                   <div className="form-group">
                       <label htmlFor="code"></label>
-                      <input type="number" id="code" placeholder="Security Code *" required maxLength="3"  className="form-control"></input>
+                      <input name= "code" type="number" id="code" placeholder="Security Code *" required maxLength="3"  className="form-control"></input>
                   </div>
 
                   </div>
@@ -229,9 +236,6 @@ class Checkout extends Component {
             </form>
         </div>
         </div>
-  </div>
-
-
         )
       }
 };
