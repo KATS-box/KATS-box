@@ -28,6 +28,7 @@
     "babel": "^6.23.0",
     "babel-loader": "^8.2.2",
     "babel-preset-react": "^6.24.1",
+    "bootstrap": "^3.4.1",
     "concurrently": "^6.2.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",

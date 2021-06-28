@@ -6,14 +6,27 @@ const Checkout = props => {
   return (
   <div>
     <Header />
-    this is in checkout
+    <h2>Checkout</h2>
+
     <Link to={'/shop'}>
       <button
         type="button"
       >
-        back
+        not ready to purchase yet?
       </button>
     </Link>
+
+    <div>
+      My Cart
+
+      {'IMPORT CART ITEM HERE'}
+
+      <hr/>
+      Subtotal: {'whatever is the total price added from database'}
+      Tax: {'tax calc'}
+      Shipping: always free
+      Total: {'subtotal + tax'}
+    </div>
 
     <div className="mb-2 top">
             <form action="">
@@ -27,7 +40,7 @@ const Checkout = props => {
 
                     <div className="form-group col-8">
                         <label htmlFor="lastname"></label>
-                        <input value={lastname} id="lastname" placeholder="Last Name *" type="text" required className="form-control"/>
+                        <input id="lastname" placeholder="Last Name *" type="text" required className="form-control"/>
                     </div>
 
                     <div className="form-group">
@@ -40,13 +53,13 @@ const Checkout = props => {
                         <input id="Address2" placeholder="APT, SUITE, ETC. (OPTIONAL)" type="text" className="form-control"></input>
                     </div>
 
-                <p>
+                <div>
                   <div className="form-group">
                       <label htmlFor="city"></label>
                       <input id="city" type="text" placeholder="City *" className="form-control" required ></input>
                   </div>
 
-                  <label for="state"></label>
+                  <label htmlFor="state"></label>
                   <select id="state" name="state" required>
                     <option disabled>State *</option>
                     <option value="AL">Alabama</option>
@@ -106,7 +119,7 @@ const Checkout = props => {
                         <label htmlFor="zipcode"></label>
                         <input id="zipcode" placeholder="Zip Code *" className="form-control" required type="number"></input>
                     </div>
-                </p>
+                </div>
 
                 <div className="form-group">
                       <label htmlFor="phone"></label>
@@ -129,20 +142,22 @@ const Checkout = props => {
                       <input type="number" id="cardnumber" placeholder="Card Number *" required className="form-control"></input>
                   </div>
 
-                  <p>
+                  <div>
                   <div className="form-group">
                       <label htmlFor="cardexpire"></label>
-                      <input type="date" id="cardexpire" placeholder="MM / YY *" required className="form-control"></input>
+                      <input type="text" id="cardexpire" placeholder="MM / YY *" required className="form-control"></input>
                   </div>
 
                   <div className="form-group">
                       <label htmlFor="code"></label>
-                      <input type="number" id="code" placeholder="Security Code *" required maxlength="3"  className="form-control"></input>
+                      <input type="number" id="code" placeholder="Security Code *" required maxLength="3"  className="form-control"></input>
                   </div>
 
-                  </p>
+                  </div>
 
-                <button onClick={handleSubmit} type="submit">Confirm Purchase</button>
+                <button 
+                // onClick={handleSubmit} 
+                type="submit">Confirm Purchase</button>
                 </div>
             </form>
         </div>
