@@ -8,6 +8,7 @@ const Checkout = props => {
   return (
   <div>
     <Header />
+    <div className="checkout-header">
     <h2>Checkout</h2>
 
     <Link to={'/shop'}>
@@ -17,8 +18,9 @@ const Checkout = props => {
         not ready to purchase yet?
       </button>
     </Link>
-
-    <div>
+    </div>
+    <div className="checkout-flex">
+    <div className="checkout-cart">
       My Cart
 
       {'IMPORT CART ITEM HERE'}
@@ -61,7 +63,7 @@ const Checkout = props => {
                       <label htmlFor="city"></label>
                       <input id="city" type="text" placeholder="City *" className="form-control" required ></input>
                   </div>
-
+                  <br></br>
                   <label htmlFor="state"></label>
                   <select id="state" name="state" required>
                     <option disabled>State *</option>
@@ -157,11 +159,12 @@ const Checkout = props => {
                   </div>
 
                   </div>
-
+                <br></br>
                 <button 
                 type="submit">Confirm Purchase</button>
                 </div>
             </form>
+        </div>
         </div>
   </div>
 
