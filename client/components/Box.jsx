@@ -19,7 +19,9 @@ class Box extends Component {
       itemurls: 'https://pusheen.com/wp-content/uploads/2019/08/Business.jpg',
       items:'choose a box size to see more',
       displaySize: [['smalljbox','mediumjbox','largejbox'],['smallkbox','mediumkbox','largekbox'],['smallcbox','mediumcbox','largecbox'],['smallmbox','mediummbox','largembox']],
-      price:'$39.95'
+      price:'$39.95',
+      cartItemsState:[],
+      cartSubtotal: 0,
     }
   }
 
@@ -48,6 +50,43 @@ class Box extends Component {
 
     let cartContents;
 
+    const cartItems = [];
+    let subTotal = 0;
+
+    const renderCart = () => {
+      for(const el in cartContents) {
+        console.log(el,cartContents[el])
+        if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
+
+          if(el[0] === 's') subTotal += 30.95
+          if(el[0] === 'm') subTotal += 39.95
+          if(el[0] === 'l') subTotal += 47.95
+
+          cartItems.push(    
+            <div>    
+              <div className='cartItems'>
+                <p>{el}:{cartContents[el]}</p>
+              </div>
+              <button
+              onClick={() => {
+                fetch('/deleteItem', {
+                  method: 'DELETE',
+                  headers: 'application/json',
+                  body: cartContents[el],
+                })
+              }}
+              >
+                delete
+              </button>
+            </div>
+          )
+        }
+      }
+      this.setState({cartItemsState:cartItems})
+      this.setState({cartSubtotal:subTotal})
+    }
+  
+
     return (
       <div className="box-page">
         <Header />
@@ -64,25 +103,22 @@ class Box extends Component {
               console.log(data)
               cartContents = data
             })
+            .then(() => renderCart())
           }}
           ></i>
 
           <ShoppingCartModal show={this.state.show}>
             <div id='modal'>
             
-              my cart ({'number of items in cart from database'})
+            {document.cookie.split('=')[1]}'s cart
               <hr/>
 
-            {'IMPORT ITEM HERE'}
-            {cartContents}
-              {/* 
-              fetch('/getCart')
-              .then(data => data.json())
-              .then()
-              .catch(err => console.log('error getting cart',err))
-              */}
+              {this.state.cartItemsState}
+
             <hr/>
-            Subtotal: {'whatever is the total price added from database'}
+
+            Subtotal: ${this.state.cartSubtotal}
+            <br></br>
             <Link to={'/shop/checkout'}>
               <button
                 type="button"

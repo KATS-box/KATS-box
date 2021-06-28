@@ -337,9 +337,9 @@ app.post('shop/checkout', async (req, res) => {
 // get cart when click on the bag icon: 
 app.get('/getCart/:username', async (req, res) => {
     try{
-            console.log('im getting cart',req.params.username)
+            //console.log('im getting cart',req.params.username)
             const results = await db.query("select * from carts WHERE username = $1;", [req.params.username.slice(1)]);
-            console.log(results)
+            // console.log(results)
             res.status(200).json(results.rows[0])
         } catch(err) {
             console.log('Error found in get method to shop/bag', err); 

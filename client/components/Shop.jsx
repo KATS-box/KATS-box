@@ -16,6 +16,8 @@ class Shop extends Component {
         loggedIn: false,
         cart:[],
         show: false,
+        cartItemsState:[],
+        cartSubtotal: 0,
       }
     };
 
@@ -25,37 +27,91 @@ class Shop extends Component {
       });
     };
 
+    
 
   render() {
+
+    let cartContents;
+
+    const cartItems = [];
+    let subTotal = 0;
+
+    const renderCart = () => {
+      for(const el in cartContents) {
+        console.log(el,cartContents[el])
+        if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
+
+          if(el[0] === 's') subTotal += 30.95
+          if(el[0] === 'm') subTotal += 39.95
+          if(el[0] === 'l') subTotal += 47.95
+
+          cartItems.push(    
+            <div>    
+              <div className='cartItems'>
+                <p>{el}:{cartContents[el]}</p>
+              </div>
+              <button
+              onClick={() => {
+                fetch('/deleteItem', {
+                  method: 'DELETE',
+                  headers: 'application/json',
+                  body: cartContents[el],
+                })
+              }}
+              >
+                delete
+              </button>
+            </div>
+          )
+        }
+      }
+      this.setState({cartItemsState:cartItems})
+      this.setState({cartSubtotal:subTotal})
+    }
 
     return (
       <section className="mainSection">
         <Header />
         
 
-        <i className="fas fa-shopping-bag"
+                  {/* shopping cart modal */}
+
+                  <i className="fas fa-shopping-bag"
           onClick={e => {
+            console.log('click')
             this.showModal();
-          }}/>
-        
+            fetch(`/getCart/:${document.cookie.split('=')[1]}`)
+            .then(data => data.json())
+            .then(data => {
+              console.log(data)
+              cartContents = data
+            })
+            .then(() => renderCart())
+          }}
+          ></i>
+
           <ShoppingCartModal show={this.state.show}>
-          <div id='modal'>
-            my cart ({'number of items in cart from database'})
+            <div id='modal'>
+            
+            {document.cookie.split('=')[1]}'s cart
+              <hr/>
+
+              {this.state.cartItemsState}
+
             <hr/>
 
-          {'IMPORT ITEM HERE'}
-
-          <hr/>
-          Subtotal: {'whatever is the total price added from database'}
-          <Link to={'/shop/checkout'}>
+            Subtotal: ${this.state.cartSubtotal}
+            <br></br>
+            <Link to={'/shop/checkout'}>
               <button
                 type="button"
               >
                 go to checkout
               </button>
             </Link>
-            </div>
-          </ShoppingCartModal>
+
+          </div>
+        </ShoppingCartModal>
 
           
         <header className="pageHeader">
