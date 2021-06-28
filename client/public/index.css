@@ -26,8 +26,6 @@ h2 {
     font-size: 40px;
 }
 
-
-
 body {
     background-color: #CDF0EA;
     color: rgba(0, 0, 0, 0.76);
@@ -123,7 +121,7 @@ input {
     width: 20rem;
     z-index: 1000;
     right: 10px;
-    top: 30px;
+    top: 60px;
 }
 
 img {
@@ -231,4 +229,14 @@ img.card-img-top {
 
 select#state {
     background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
+}
+
+a {
+    text-decoration: none;
+    color:inherit
+}
+
+a:hover {
+    text-decoration: none;
+    color:inherit
 }

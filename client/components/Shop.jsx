@@ -202,13 +202,13 @@ class Shop extends Component {
             </div>
           </Link>
           </div>
-          <Link to={'/shop/checkout'}>
+          {/* <Link to={'/shop/checkout'}>
             <button
               type="button"
             >
               Checkout
             </button>
-          </Link>
+          </Link> */}
   
           <section>
      <div id='about'>

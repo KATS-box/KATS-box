@@ -70,9 +70,12 @@ class Box extends Component {
               <button
               onClick={() => {
                 fetch('/deleteItem', {
-                  method: 'DELETE',
+                  method: 'PUT',
                   headers: 'application/json',
-                  body: cartContents[el],
+                  body: {
+                    item: cartContents[el],
+                    username: document.cookie.split('=')[1],
+                  }
                 })
               }}
               >
