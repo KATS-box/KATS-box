@@ -156,7 +156,8 @@ class Shop extends Component {
   
           <section>
      <div id='about'>
- 
+
+            <div className="left-footer">
      <div id='logo'>
  
        <h2>Social</h2>
@@ -181,44 +182,55 @@ class Shop extends Component {
        <p>katsbox118@outlook.com</p>
        <p>KATS-box LLC, a Kaden Feeding Group Company.  All rights reserved.</p>
      </div>
- 
- 
-     <div id='moreInfo'>
-       <h2 id='help'>Help</h2>
-       <ul>
-         <li><a href="#">FAQS</a></li>
-         <li><a href="#">Contact Us</a></li>
-         <li><a href="#">Feedbacks</a></li>
-         <li><a href="#">Cancel your Order</a></li>
-         <li><a href="#">Refund policies</a></li>
-         <li><a>Privacy Policy</a></li>
-       </ul>
- 
-       <h2 id ='explore'>Explore</h2>
- 
-       <ul>
-         <li><a href="#">Japanese Boxes</a></li>
-         <li><a href="#">Korean Boxes</a></li>
-         <li><a href="#">Chinese Boxes</a></li>
-         <li><a href="#">Mixed Boxes</a></li>
-       </ul>
- 
      </div>
  
        <div id="subscribe">
          <form action="homepage.php" method ="GET">
          <h2 id="subscribeHeader">Subscribe to Us</h2>
          <p id="subscribeWord">See The Latest On Our Instagram Feed, And Connect With Us On Facebook, Twitter & More, Subscribe to Unlock 10% Off Your First Order</p>
+         <div>
+        
          <input type="text" placeholder="Name" name="name" required autoFocus/>
+         <br></br>
          <input type="text" placeholder="Email Address" name="mail" required/>
+         </div>
          <label>
            <input type="checkbox" defaultChecked="checked" name="subscribe"/> I accept the Privacy Policy and the Terms of Service
          </label>
+         <div>
          <input type="submit" value="Subscribe Now"/>
+         </div>
          </form>
        </div>
  
+       <div id='moreInfo'>
+       
+
+       <ul className="help-column">
+       
+       </ul>
+ 
+       
+ 
+       <ul className="help-column">
+       <h2 id ='explore'>Explore</h2>
+         <li><a href="#">Japanese Boxes</a></li>
+         <li><a href="#">Korean Boxes</a></li>
+         <li><a href="#">Chinese Boxes</a></li>
+         <li><a href="#">Mixed Boxes</a></li>
+         <h2 id='help'>Help</h2>
+         <li><a href="#">FAQS</a></li>
+         <li><a href="#">Contact Us</a></li>
+         <li><a href="#">Cancel your Order</a></li>
+         <li><a href="#">Refund policies</a></li>
+         <li><a href="#">Privacy Policy</a></li>
+       </ul>
+ 
      </div>
+
+     </div>
+
+     
      
    </section>
         </header>
