@@ -8,7 +8,13 @@ const Login = props => {
   return (
   <div id='loginpage'>
     <Header />
-
+    <Link to={'/confirmation'}>
+      <button
+        type="button"
+      >
+        confirmation page
+      </button>
+    </Link>
     <Link to={'/shop'}>
       <button 
         type="button"
@@ -25,8 +31,8 @@ const Login = props => {
     <div className="tab-content">
       <div className="tab-pane active" id="a">
         <form method="POST" action='/login'>
-          <input className='username' type='text' placeholder='username'/>
-          <input className='pass' type='text' placeholder='password'/>
+          <input className='username' name='username' type='text' placeholder='username'/>
+          <input className='pass' name='pass' type='text' placeholder='password'/>
           <input 
           type='submit' 
           value="Log In" 

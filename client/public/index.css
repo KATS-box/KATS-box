@@ -1,10 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
+/* lightgreen --- #CDF0EA
+offwhite --- #F9F9F9
+lightpink --- #F7DBF0
+lightpurple --- #BEAEE2 */
+
+
 body {
-    background-color: #e1d3ed;
+    background-color: #F9F9F9;
+    color: rgba(0, 0, 0, 0.76);
+}
+
+.mainSection {
+    padding: 40px;
+}
+
+.all-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fa-shopping-bag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.items {
+    padding: 10px;
+    margin: 10px
 }
 
 #loginpage {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    /* align-items: center; */
+}
+
+button {
+    border-radius: 7px;
+    background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
+}
+
+input {
+    background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
+}
+
+.allCards {
+    
+    /* display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    row-gap: 0;
+    column-gap: 0; */
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    width: fit-content;
+    justify-content:flex-start;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-text {
+    color: rgba(88, 88, 245, 0.911);
+}
+
+.card {
+    background-color: #beaee285;
+    display: flex;
+    padding: 40px;
+    margin: 10px;
+    min-height: 400px;
+    align-items: center;
+
+}
+
+#moreInfo {
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+.help-column {
+    /* padding: 20px; */
+    margin: 20px 20px;
 }
 
 #form {
@@ -22,9 +103,49 @@ body {
     background: #f3f3f3;
     border: 1px solid lightgray;
     box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
-    width: 20rem
+    width: 20rem;
+    z-index: 1000;
+    right: 10px;
+    top: 30px;
 }
 
 img {
-    max-width: 300px;
+    max-height: 300px;
+    border-radius: 3px;
+}
+
+#about {
+    /* padding: 20px 10px; */
+    display: flex;
+    flex-direction: row;
+    background-color: #CDF0EA;
+    justify-content: flex-start;
+    /* align-content: flex-start; */
+    /* align-items: center; */
+}
+
+
+
+#about {
+
+    border: 1px solid black;
+    padding: 10px 10px;
+    margin: 20px 0px;
+}
+
+#subscribe {
+    padding: 20px 10px;
+    display: flex;
+
+    max-width: 33%;
+}
+
+#moreInfo {
+    padding: 0px 20px;
+}
+
+.left-footer {
+    padding: 20px 10px;
+
+    max-width: 33%;
 }

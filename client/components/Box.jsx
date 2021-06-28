@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 import ShoppingCartModal from './ShoppingCartModal.jsx';
 
 
+
 class Box extends Component {
   constructor(props) {
     super(props);
@@ -14,10 +15,11 @@ class Box extends Component {
       loggedIn: props.location.state.loggedIn,
       cart:props.location.state.cart,
       show: props.location.state.show,
-      desc: 'description',
+      desc: '',
       itemurls: 'https://pusheen.com/wp-content/uploads/2019/08/Business.jpg',
-      items:'choose a box size'
-
+      items:'choose a box size to see more',
+      displaySize: [['smalljbox','mediumjbox','largejbox'],['smallkbox','mediumkbox','largekbox'],['smallcbox','mediumcbox','largecbox'],['smallmbox','mediummbox','largembox']],
+      price:'$39.95'
     }
   }
 
@@ -29,10 +31,8 @@ class Box extends Component {
 
   render() {
 
-
     const urls = this.state.itemurls
     const items = this.state.items
-    console.log(urls,items)
 
     const spliturls = urls.split(',')
     const splititems = items.split(',')
@@ -46,42 +46,50 @@ class Box extends Component {
         )
     })
 
-
+    let cartContents;
 
     return (
-      <div>
+      <div className="box-page">
         <Header />
       
           {/* shopping cart modal */}
 
           <i className="fas fa-shopping-bag"
           onClick={e => {
+            console.log('click')
             this.showModal();
+            fetch(`/getCart/:${document.cookie.split('=')[1]}`)
+            .then(data => data.json())
+            .then(data => {
+              console.log(data)
+              cartContents = data
+            })
           }}
           ></i>
 
           <ShoppingCartModal show={this.state.show}>
             <div id='modal'>
             
-          my cart ({'number of items in cart from database'})
-          <hr/>
+              my cart ({'number of items in cart from database'})
+              <hr/>
 
-         {'IMPORT ITEM HERE'}
-          {/* 
-          fetch('/getCart')
-          .then(data => data.json())
-          .then()
-          .catch(err => console.log('error getting cart',err))
-          */}
-         <hr/>
-         Subtotal: {'whatever is the total price added from database'}
-         <Link to={'/shop/checkout'}>
-            <button
-              type="button"
-            >
-              go to checkout
-            </button>
-          </Link>
+            {'IMPORT ITEM HERE'}
+            {cartContents}
+              {/* 
+              fetch('/getCart')
+              .then(data => data.json())
+              .then()
+              .catch(err => console.log('error getting cart',err))
+              */}
+            <hr/>
+            Subtotal: {'whatever is the total price added from database'}
+            <Link to={'/shop/checkout'}>
+              <button
+                type="button"
+              >
+                go to checkout
+              </button>
+            </Link>
 
           </div>
         </ShoppingCartModal>
@@ -89,10 +97,10 @@ class Box extends Component {
 
 
 
-        <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2>
+        {/* <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2> */}
         <div>
           <img src={this.state.boxListurls} />
-          {/* <div class="MagicScroll" data-options="mode: carousel; height: 275px;">
+          {/* <div className="MagicScroll" data-options="mode: carousel; height: 275px;">
             <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
             <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
             <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
@@ -105,53 +113,52 @@ class Box extends Component {
         </div> */}
           <div>
             <h1>{this.state.boxList} Snack Box</h1>
-            <h4>This is the {this.state.chosenBox}</h4>
+            <h2>{this.state.price}</h2>
             <p>{this.state.desc}</p>
             
-            <div className='itemImages'>
 
-              
-
-            </div>
-            {/* this was the button to fetch from the db, I couldnt get it working on the s m l form below */}
-            <button
-            onClick={() => {
-              fetch('/shop/:smalljbox')
-              .then(data => data.json())
-
-              // .then(data => console.log(data.description))
-              .then((data) => {
-                console.log(data)
-                this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurls})
-              })
-              .catch((err) => console.log(err))
-            }}
-            >ewhjfbhjwefb</button>
-
-
-            
-            <form className='cartform' method="PUT" action={`/shop/${this.state.boxList}Box`}>
+            <form className='cartform' method="POST" action={`/${this.state.boxList}Box`}>
               <label>Select a size</label>
               <div className="btn-group" data-toggle="buttons">
                 <label className="btn btn-primary">
-                  <input type="radio" name="1" id="1" 
+                  <input type="radio" name="1" id="1" value="1"
                     onClick={() => {
                       console.log('clicked')
-                      fetch('/shop/:smalljbox')
+                      fetch(`/${this.state.displaySize[this.state.chosenBox][0]}`)
                       .then(data => data.json())
-                      .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurls}))
-                      .then(() => console.log('ive been clicked small'))
+                      .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl, price:data.price}))
+                      .then(() => console.log(`/${this.state.displaySize[this.state.chosenBox][0]}`))
                       .catch((err) => console.log(err))
                     }}
                   ></input>
                   Small
                 </label>
                 <label className="btn btn-primary active">
-                  <input type="radio" name="2" id="2" defaultChecked></input>
+                  <input type="radio" name="2" id="2"  value="2" defaultChecked
+                    onClick={() => {
+                    console.log('clicked')
+                    fetch(`/${this.state.displaySize[this.state.chosenBox][1]}`)
+                    .then(data => data.json())
+                    .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl, price:data.price}))
+                    .then(() => console.log(`/${this.state.displaySize[this.state.chosenBox][1]}`))
+                    .catch((err) => console.log(err))
+                  }}
+                  ></input>
                   Medium
                 </label>
                 <label className="btn btn-primary">
-                  <input type="radio" name="3" id="3"></input>
+                  <input type="radio" name="3" id="3" value="3"
+                    onClick={() => {
+                    console.log('clicked')
+                    fetch(`/${this.state.displaySize[this.state.chosenBox][2]}`)
+                    .then(data => {
+                      console.log(`/${this.state.displaySize[this.state.chosenBox][2]}`)
+                      return data.json()})
+                    .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl, price:data.price}))
+                    .then(() => console.log(`/${this.state.displaySize[this.state.chosenBox][2]}`))
+                    .catch((err) => console.log(err))
+                  }}
+                  ></input>
                   Large
                 </label>
               </div>
@@ -169,7 +176,9 @@ class Box extends Component {
             </form>
           </div>
         </div>
-        {itemImages}
+        <div className='all-items'>
+          {itemImages}
+        </div>
         <Link to={'/shop/checkout'}>
           <button
             type="button"
