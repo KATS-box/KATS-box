@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 import ShoppingCartModal from './ShoppingCartModal.jsx';
 
 
+
 class Box extends Component {
   constructor(props) {
     super(props);
@@ -14,11 +15,11 @@ class Box extends Component {
       loggedIn: props.location.state.loggedIn,
       cart:props.location.state.cart,
       show: props.location.state.show,
-      desc: 'description',
+      desc: '',
       itemurls: 'https://pusheen.com/wp-content/uploads/2019/08/Business.jpg',
-      items:'choose a box size',
-      displaySize: [['smalljbox','mediumjbox','largejbox'],['smallkbox','mediumkbox','largekbox'],['smallcbox','mediumcbox','largekbox'],['smallmbox','mediummbox','largembox']]
-
+      items:'choose a box size to see more',
+      displaySize: [['smalljbox','mediumjbox','largejbox'],['smallkbox','mediumkbox','largekbox'],['smallcbox','mediumcbox','largecbox'],['smallmbox','mediummbox','largembox']],
+      price:'$39.95'
     }
   }
 
@@ -32,7 +33,6 @@ class Box extends Component {
 
     const urls = this.state.itemurls
     const items = this.state.items
-    console.log(urls,items)
 
     const spliturls = urls.split(',')
     const splititems = items.split(',')
@@ -99,7 +99,7 @@ class Box extends Component {
         {/* <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2> */}
         <div>
           <img src={this.state.boxListurls} />
-          {/* <div class="MagicScroll" data-options="mode: carousel; height: 275px;">
+          {/* <div className="MagicScroll" data-options="mode: carousel; height: 275px;">
             <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
             <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
             <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
@@ -112,27 +112,10 @@ class Box extends Component {
         </div> */}
           <div>
             <h1>{this.state.boxList} Snack Box</h1>
-            {/* <h4>This is the {this.state.boxList} snack box</h4> */}
+            <h2>{this.state.price}</h2>
             <p>{this.state.desc}</p>
             
 
-            {/* this was the button to fetch from the db, I couldnt get it working on the s m l form below */}
-            {/* <button
-            onClick={() => {
-              fetch(`/shop/:${displaySize[this.state.chosenBox][0]}`)
-              .then(data => data.json())
-
-              // .then(data => console.log(data.description))
-              .then((data) => {
-                console.log(data)
-                this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl})
-              })
-              .catch((err) => console.log(err))
-            }}
-            >ewhjfbhjwefb</button> */}
-
-
-            
             <form className='cartform' method="POST" action={`/${this.state.boxList}Box`}>
               <label>Select a size</label>
               <div className="btn-group" data-toggle="buttons">
@@ -142,7 +125,7 @@ class Box extends Component {
                       console.log('clicked')
                       fetch(`/${this.state.displaySize[this.state.chosenBox][0]}`)
                       .then(data => data.json())
-                      .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl}))
+                      .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl, price:data.price}))
                       .then(() => console.log(`/${this.state.displaySize[this.state.chosenBox][0]}`))
                       .catch((err) => console.log(err))
                     }}
@@ -155,7 +138,7 @@ class Box extends Component {
                     console.log('clicked')
                     fetch(`/${this.state.displaySize[this.state.chosenBox][1]}`)
                     .then(data => data.json())
-                    .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl}))
+                    .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl, price:data.price}))
                     .then(() => console.log(`/${this.state.displaySize[this.state.chosenBox][1]}`))
                     .catch((err) => console.log(err))
                   }}
@@ -170,7 +153,7 @@ class Box extends Component {
                     .then(data => {
                       console.log(`/${this.state.displaySize[this.state.chosenBox][2]}`)
                       return data.json()})
-                    .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl}))
+                    .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurl, price:data.price}))
                     .then(() => console.log(`/${this.state.displaySize[this.state.chosenBox][2]}`))
                     .catch((err) => console.log(err))
                   }}
