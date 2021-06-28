@@ -4,7 +4,8 @@ const morgan = require('morgan');
 require('dotenv').config();
 const path = require('path')
 const PORT = 3000;
-// const db = require('./db');
+const nodemailer = require('nodemailer');
+const db = require('./models');
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,15 @@ express.static(path.resolve(__dirname, '../client'))
 app.get('/index.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.js'))
 })
+
+const transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+        user: "katsbox118@outlook.com",
+        pass: "Luhansehun520"
+    }
+});
+
 
 app.get('/', async (req, res) => {
     try {
@@ -38,7 +48,6 @@ app.get('/shop', async (req, res) => {
 });
 
 
-
 //post request to signup page: get the username and email and pass sure they are not in the database yet!
 app.post('/signup', async (req, res, next) => {
     try{
@@ -52,7 +61,7 @@ app.post('/signup', async (req, res, next) => {
         //if both is not in the database, store both
         if (result1.rows.length === 0 && result2.rows.length === 0) {
             const results = await db.query("INSERT INTO users (firstname, lastname, username, pass, email) values ($1, $2, $3, $4, $5) returning *;", [req.body.firstname, req.body.lastname, req.body.username, req.body.pass, req.body.email]);
-            res.status(200).redirect('/shop');
+            res.status(200).cookie('username', req.body.username).redirect('/shop');
         //something already exists in the database:
         } else {
             if (result1.rows.length !== 0 && result2.rows.length !== 0) {
@@ -99,7 +108,7 @@ app.post('/login', async (req, res, next) => {
         //if username is in database, get password to be checked;
         if (result1.rows.length !== 0) {
             if (password === result2.rows[0]) {
-                res.status(200).redirect('/shop');
+                res.status(200).cookie('username', req.body.username).redirect('/shop');
             } else {
                 res.status(200).json({
                     data: {username: true,
@@ -123,34 +132,60 @@ app.post('/login', async (req, res, next) => {
 
 
 //to get japanese box and its items to show up on the page, when you click on it!
-app.get('shop/:japanese-box', async (req, res) => {
+app.get('/shop/:small-j-box', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
+        // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;",[req.params.small-j-box]);
+
         res.status(200).json({
             status: "success",     
-            items: results.rows,
+            items: results.rows[0],
         });
     } catch(err) {
-        console.log('Error found in get method to home/japanese-box', err); 
+        console.log('Error found in get method to shop/small-j-box', err); 
     }
 });
 
 
 
 //to get korean box and its items to show up on the page, when you click on it!
-app.get('shop/:korean-box', async (req, res) => {
+app.get('/shop/:medium-j-box', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.korean-box]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;",[req.params.medium-j-box]);
         res.status(200).json({
             status: "success",     
-            items: results.rows,
+            items: results.rows[0],
         });
     } catch(err) {
-        console.log('Error found in get method to home/korean-box', err); 
+        console.log('Error found in get method to shop/medium-j-box', err); 
+    }
+});
+
+app.get('/shop/:large-j-box', async (req, res) => {
+    try{
+        const results = await db.query("select * from boxes WHERE boxname = $1;",[req.params.large-j-box]);
+        res.status(200).json({
+            status: "success",     
+            items: results.rows[0],
+        });
+    } catch(err) {
+        console.log('Error found in get method to shop/large-j-box', err); 
     }
 });
 
 
+// app.get('/shop/:lar-j-box', async (req, res) => {
+//     try{
+//         const results = await db.query("select * from boxes WHERE boxname = $1;",[req.params.large-j-box]);
+//         res.status(200).json({
+//             status: "success",     
+//             items: results.rows[0],
+//         });
+//     } catch(err) {
+//         console.log('Error found in get method to shop/large-j-box', err); 
+//     }
+// });
 
 //to get chinese box and its items to show up on the page, when you click on it!
 app.get('/shop/:chinese-box', async (req, res) => {
@@ -168,7 +203,7 @@ app.get('/shop/:chinese-box', async (req, res) => {
 
 
 //to get mixed box and its items to show up on the page, when you click on it!
-app.get('shop/:mixed-box', async (req, res) => {
+app.get('/shop/:mixed-box', async (req, res) => {
     try{
         const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.mixed-box]);
         res.status(200).json({
@@ -180,6 +215,19 @@ app.get('shop/:mixed-box', async (req, res) => {
     }
 });
 
+//post to checkout page, to add into the sales table in database
+app.post('/checkout', async (req, res) => {
+    try{
+        const results = await db.query("INSERT INTO sales (userid, boxid1, boxid2, boxid3, boxid4, progress, price) values ($1, $2, $3, $4, $5, $6, $7) returning *;", [req.body.userid, req.body.boxid1, req.body.boxid2, req.body.boxid3, req.body.boxid4, 'order received', req.body.price]);
+
+        const deleteCart = await db.query("DELETE FROM cart WHERE userid = $1", [req.body.userid]);
+
+        // Then clear the cart
+        res.status(201).redirect('/confirmation');
+    } catch(err) {
+        console.log(err);
+    }
+});
 
 
 //to insert into the sales table when user checks out:

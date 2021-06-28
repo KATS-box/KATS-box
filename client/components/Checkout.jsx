@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import Header from './Header.jsx'
 
 const Checkout = props => {
+
+  const handleSubmit = () => {
+    fetch()
+  }
   return (
   <div>
     <Header />
@@ -27,7 +31,7 @@ const Checkout = props => {
 
                     <div className="form-group col-8">
                         <label htmlFor="lastname"></label>
-                        <input value={lastname} id="lastname" placeholder="Last Name *" type="text" required className="form-control"/>
+                        <input id="lastname" placeholder="Last Name *" type="text" required className="form-control"/>
                     </div>
 
                     <div className="form-group">
