@@ -335,9 +335,11 @@ app.post('shop/checkout', async (req, res) => {
 
 
 // get cart when click on the bag icon: 
-app.get('/getCart', async (req, res) => {
+app.get('/getCart/:username', async (req, res) => {
     try{
-            const results = await db.query("select * from carts WHERE userid = $1;", [req.params]);
+            console.log('im getting cart',req.params.username)
+            const results = await db.query("select * from carts WHERE username = $1;", [req.params.username.slice(1)]);
+            console.log(results)
             res.status(200).json(results.rows[0])
         } catch(err) {
             console.log('Error found in get method to shop/bag', err); 
@@ -347,23 +349,40 @@ app.get('/getCart', async (req, res) => {
 
 app.post('/KoreanBox', async (req, res) => {
 
-    let obj = Object.keys(req.query);
-    let boxSize = obj[0];
-    let quantity = req.query[obj[1]];
-    let username = req.query[obj[2]];
+    let obj = Object.keys(req.body);
+    let boxSize;
+    let quantity;
+    let username;
+    if(obj.length === 4) {
+        if(obj[0] === '1') {
+            console.log('its 1')
+            boxSize = 1
+        } else {
+            console.log('its 3')
+            boxSize = 3
+        }
+        quantity = req.body[obj[2]];
+        username = req.body[obj[3]];
+    
+    } else if (obj.length !== 4){
+        console.log('its 2')
+        boxSize = 2
+        quantity = req.body[obj[1]];
+        username = req.body[obj[2]];
+    }
+    console.log(req.body, obj)
+    console.log(boxSize,quantity,username)
+
     try{
-        if(boxSize === '1') {
-            let updateRow = smallkbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '2') {
-            let updateRow = mediumkbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '3') {
-            let updateRow = largekbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
+        if(boxSize === 1) {
+            const results = await db.query("UPDATE carts SET smallkbox = $1 WHERE username = $2 returning *;", [quantity, username]);
+            res.status(200)
+        } else if (boxSize === 2) {
+            const results = await db.query("UPDATE carts SET mediumkbox = $1 WHERE username = $2 returning *;", [quantity, username]);
+            res.status(200)
+        } else if (boxSize === 3) {
+            const results = await db.query("UPDATE carts SET largekbox = $1 WHERE username = $2 returning *;", [quantity, username]);
+            res.status(200)
         }
     } catch(err) {
         console.log('Error found in put method to /shop/KoreanBox', err); 
@@ -398,22 +417,20 @@ app.post('/JapaneseBox', async (req, res) => {
     console.log(req.body, obj)
     console.log(boxSize,quantity,username)
 
-    // let boxSize = obj[0];
-    // let quantity = req.body[req.body[1]];
-    // let username = req.body[obj[2]];
     try{
-        if(boxSize === '1') {
-            let updateRow = 'smalljbox';
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '2') {
-            let updateRow = 'mediumjbox';
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '3') {
-            let updateRow = 'largejbox';
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
+        if(boxSize === 1) {
+            const results = await db.query("UPDATE carts SET smalljbox = $1 WHERE username = $2 returning *;", [quantity, username]);
+            console.log(results)
+            res.status(200)
+        } else if (boxSize === 2) {
+            console.log('im in medium jbox')
+            const results = await db.query("UPDATE carts SET mediumjbox = $1 WHERE username = $2 returning *;", [quantity, username]);
+            console.log(results)
+            res.status(200)
+        } else if (boxSize === 3) {
+            const results = await db.query("UPDATE carts SET largejbox = $2 WHERE username = $3 returning *;", [quantity, username]);
+            console.log(results)
+            res.status(200)
         }
     } catch(err) {
         console.log('Error found in put method to /shop/JapaneseBox', err); 
@@ -423,23 +440,40 @@ app.post('/JapaneseBox', async (req, res) => {
 
 app.post('/ChineseBox', async (req, res) => {
 
-    let obj = Object.keys(req.query);
-    let boxSize = obj[0];
-    let quantity = req.query[obj[1]];
-    let username = req.query[obj[2]];
+    let obj = Object.keys(req.body);
+    let boxSize;
+    let quantity;
+    let username;
+    if(obj.length === 4) {
+        if(obj[0] === '1') {
+            console.log('its 1')
+            boxSize = 1
+        } else {
+            console.log('its 3')
+            boxSize = 3
+        }
+        quantity = req.body[obj[2]];
+        username = req.body[obj[3]];
+    
+    } else if (obj.length !== 4){
+        console.log('its 2')
+        boxSize = 2
+        quantity = req.body[obj[1]];
+        username = req.body[obj[2]];
+    }
+    console.log(req.body, obj)
+    console.log(boxSize,quantity,username)
+
     try{
-        if(boxSize === '1') {
-            let updateRow = smallcbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '2') {
-            let updateRow = mediumcbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '3') {
-            let updateRow = largecbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
+        if(boxSize === 1) {
+            const results = await db.query("UPDATE carts SET smallcbox = $1 WHERE username = $2 returning *;", [quantity, username]);
+            res.status(200)
+        } else if (boxSize === 2) {
+            const results = await db.query("UPDATE carts SET mediumcbox = $1 WHERE username = $2 returning *;", [quantity, username]);
+            res.status(200)
+        } else if (boxSize === 3) {
+            const results = await db.query("UPDATE carts SET largecbox = $1 WHERE username = $2 returning *;", [quantity, username]);
+            res.status(200)
         }
     } catch(err) {
         console.log('Error found in get method to /shop/ChineseBox', err); 
@@ -448,23 +482,40 @@ app.post('/ChineseBox', async (req, res) => {
 
 app.post('/MixedBox', async (req, res) => {
 
-    let obj = Object.keys(req.query);
-    let boxSize = obj[0];
-    let quantity = req.query[obj[1]];
-    let username = req.query[obj[2]];
+    let obj = Object.keys(req.body);
+    let boxSize;
+    let quantity;
+    let username;
+    if(obj.length === 4) {
+        if(obj[0] === '1') {
+            console.log('its 1')
+            boxSize = 1
+        } else {
+            console.log('its 3')
+            boxSize = 3
+        }
+        quantity = req.body[obj[2]];
+        username = req.body[obj[3]];
+    
+    } else if (obj.length !== 4){
+        console.log('its 2')
+        boxSize = 2
+        quantity = req.body[obj[1]];
+        username = req.body[obj[2]];
+    }
+    console.log(req.body, obj)
+    console.log(boxSize,quantity,username)
+
     try{
-        if(boxSize === '1') {
-            let updateRow = smallmbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '2') {
-            let updateRow = mediummbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '3') {
-            let updateRow = largembox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
+        if(boxSize === 1) {
+            const results = await db.query("UPDATE carts SET smallmbox = $2 WHERE username = $3 returning *;", [quantity, username]);
+            res.status(200)
+        } else if (boxSize === 2) {
+            const results = await db.query("UPDATE carts SET mediummbox = $2 WHERE username = $3 returning *;", [quantity, username]);
+            res.status(200)
+        } else if (boxSize === 3) {
+            const results = await db.query("UPDATE carts SET largembox = $2 WHERE username = $3 returning *;", [quantity, username]);
+            res.status(200)
         }
     } catch(err) {
         console.log('Error found in get method to /shop/MixedBox', err); 

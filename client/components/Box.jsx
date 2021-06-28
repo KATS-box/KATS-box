@@ -56,8 +56,9 @@ class Box extends Component {
 
           <i className="fas fa-shopping-bag"
           onClick={e => {
+            console.log('click')
             this.showModal();
-            fetch('/getCart')
+            fetch(`/getCart/:${document.cookie.split('=')[1]}`)
             .then(data => data.json())
             .then(data => {
               console.log(data)
