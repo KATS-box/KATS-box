@@ -123,7 +123,7 @@ class Box extends Component {
               <label>Select a size</label>
               <div className="btn-group" data-toggle="buttons">
                 <label className="btn btn-primary">
-                  <input type="radio" name="1" id="1" 
+                  <input type="radio" name="1" id="1" value="1"
                     onClick={() => {
                       console.log('clicked')
                       fetch(`/${this.state.displaySize[this.state.chosenBox][0]}`)
@@ -136,7 +136,7 @@ class Box extends Component {
                   Small
                 </label>
                 <label className="btn btn-primary active">
-                  <input type="radio" name="2" id="2" defaultChecked
+                  <input type="radio" name="2" id="2"  value="2" defaultChecked
                     onClick={() => {
                     console.log('clicked')
                     fetch(`/${this.state.displaySize[this.state.chosenBox][1]}`)
@@ -149,7 +149,7 @@ class Box extends Component {
                   Medium
                 </label>
                 <label className="btn btn-primary">
-                  <input type="radio" name="3" id="3"
+                  <input type="radio" name="3" id="3" value="3"
                     onClick={() => {
                     console.log('clicked')
                     fetch(`/${this.state.displaySize[this.state.chosenBox][2]}`)
