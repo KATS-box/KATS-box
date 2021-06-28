@@ -16,6 +16,7 @@ const Login = props => {
       Just let me into the Shop
       </button>
     </Link>
+
     <ul className="nav nav-tabs">
       <li><a href="#a" data-toggle="tab">Log In</a></li>
       <li><a href="#b" data-toggle="tab">Sign Up</a></li>

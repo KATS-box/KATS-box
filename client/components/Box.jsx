@@ -25,13 +25,27 @@ class Box extends Component {
 
   render() {
 
+    const urls = 'https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg,https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg,https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg'
+    const items = ['1', '2', '3']
 
-    const fetcheddesc = '';
+    const spliturls = urls.split(',')
+    const splitItems = items.split(',')
+
+    const itemImages = spliturls.map((el, i) => {
+        return (
+          <div>
+            <p>{splitItems[i]}</p>
+            <img src={el}/>
+          </div>
+        )
+    })
+
 
     return (
       <div>
         <Header />
       
+          {/* shopping cart modal */}
 
           <i className="fas fa-shopping-bag"
           onClick={e => {
@@ -61,14 +75,34 @@ class Box extends Component {
         </ShoppingCartModal>
 
 
+
+
         <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2>
         <div>
           <img src='https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg' />
+          {/* <div class="MagicScroll" data-options="mode: carousel; height: 275px;">
+            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
+            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
+            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
+            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
+            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
+            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
+            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
+            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
+            ...
+        </div> */}
           <div>
             <h1>{this.state.boxList} Snack Box</h1>
             <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h4>
             <img src={this.state.desc}></img>
-            <button
+            
+            <div className='itemImages'>
+
+              {itemImages}
+
+            </div>
+            {/* this was the button to fetch from the db, I couldnt get it working on the s m l form below */}
+            {/* <button
             onClick={() => {
               fetch('/shop/:smalljbox')
               .then(data => data.json())
@@ -76,23 +110,25 @@ class Box extends Component {
               // .then(data => console.log(data.description))
               .then((data) => this.setState({desc:data.imageurl}))
               .catch((err) => console.log(err))
-
-              
             }}
-            >ewhjfbhjwefb</button>
+            >ewhjfbhjwefb</button> */}
+
+
+            
             <form method="POST" action='/addToCart'>
 
             <label>Select a size</label>
             <div className="btn-group" data-toggle="buttons">
               <label className="btn btn-primary">
-                <input type="radio" name="options" id="small" onClick={() => {
-                  fetch('/shop/:small-j-box')
-                  .then(data => desc = data)
-                  .then(() => this.setState({desc:fetcheddesc}))
-                  .catch((err) => console.log(err))
-
-                  
-                }}/> Small
+                <input type="radio" name="options" id="small" 
+                  onClick={() => {
+                    fetch('/shop/:smalljbox')
+                    .then(data => data.json())
+                    .then((data) => this.setState({desc:data.imageurl}))
+                    .then(() => console.log('ive been clicked small'))
+                    .catch((err) => console.log(err))
+                  }}
+                /> Small
               </label>
               <label className="btn btn-primary active">
                 <input type="radio" name="options" id="medium" defaultChecked/> Medium
