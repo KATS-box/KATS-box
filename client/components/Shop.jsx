@@ -10,6 +10,7 @@ class Shop extends Component {
     this.state = {
         chosenBox: 0,
         boxList:['Japanese', 'Korean', 'Chinese', 'Mixed'],
+        boxListurls:['https://images-na.ssl-images-amazon.com/images/I/A1eww2XijJL._SX569_.jpg', 'https://i5.walmartimages.com/asr/344297e3-cc4f-4237-bbc0-345f28fad62c.5c2d34acf304d4dadd71f44cabbedd34.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff', 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://images-na.ssl-images-amazon.com/images/I/81k1Z8RPG0L._SL1500_.jpg'],
         loggedIn: false,
         cart:[],
         show: false,
@@ -62,6 +63,7 @@ class Shop extends Component {
             state: {
               chosenBox: 0,
               boxList: this.state.boxList[0],
+              boxListurls: this.state.boxListurls[0],
               show: false,
             },
             }}>
@@ -71,7 +73,7 @@ class Shop extends Component {
               Japanese Box
             </button> */}
             <div className="card" style={{width:500}}>
-              <img src="https://i.etsystatic.com/29289050/r/il/aa1f68/3099365245/il_1588xN.3099365245_gwl8.jpg" class="card-img-top" alt="..."/>
+              <img src={this.state.boxListurls[0]} className="card-img-top" alt="..."/>
               <div className="card-body">
                 <p className="card-text">Japanese Box</p>
               </div>
@@ -82,6 +84,7 @@ class Shop extends Component {
             state: {
               chosenBox: 1,
               boxList: this.state.boxList[1],
+              boxListurls: this.state.boxListurls[1],
               show: false,
             },
             }}>
@@ -91,7 +94,7 @@ class Shop extends Component {
               Korean Box
             </button> */}
             <div className="card" style={{width:500}}>
-              <img src="https://images-na.ssl-images-amazon.com/images/I/A1eww2XijJL._SX569_.jpg" class="card-img-top" alt="..."/>
+              <img src={this.state.boxListurls[1]} className="card-img-top" alt="..."/>
               <div className="card-body">
                 <p className="card-text">Korean Box</p>
               </div>
@@ -102,6 +105,7 @@ class Shop extends Component {
             state: {
               chosenBox: 2,
               boxList: this.state.boxList[2],
+              boxListurls: this.state.boxListurls[2],
               show: false,
             },
             }}>
@@ -111,7 +115,7 @@ class Shop extends Component {
               Chinese Box
             </button> */}
             <div className="card" style={{width:500}}>
-              <img src="" class="card-img-top" alt="..."/>
+              <img src={this.state.boxListurls[2]}className="card-img-top" alt="..."/>
               <div className="card-body">
                 <p className="card-text">Chinese Box</p>
               </div>
@@ -122,6 +126,7 @@ class Shop extends Component {
             state: {
               chosenBox: 3,
               boxList: this.state.boxList[3],
+              boxListurls: this.state.boxListurls[3],
               show: false,
             },
             }}>
@@ -131,7 +136,7 @@ class Shop extends Component {
               Mixed Box
             </button> */}
             <div className="card" style={{width:500}}>
-              <img src="" class="card-img-top" alt="..."/>
+              <img src={this.state.boxListurls[3]} className="card-img-top" alt="..."/>
               <div className="card-body">
                 <p className="card-text">Mixed Box</p>
               </div>

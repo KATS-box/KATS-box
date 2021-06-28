@@ -7,6 +7,7 @@ const PORT = 3000;
 const nodemailer = require('nodemailer');
 const db = require('./models');
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -54,11 +55,11 @@ app.get('/shop', async (req, res) => {
 //post request to signup page: get the username and email and pass sure they are not in the database yet!
 app.post('/signup', async (req, res, next) => {
     try{
+        
         let username = req.body.username;
         let email = req.body.email;
-
+        console.log(username, email)
         const result1 = await db.query('select * from users where username = $1', [username]);
-
         const result2 = await db.query('select * from users where email = $1', [email]);
 
         //if both is not in the database, store both
@@ -68,7 +69,7 @@ app.post('/signup', async (req, res, next) => {
             //create shopping cart for user upon sign up
             const result3 = await db.query('select userid from users where username = $1', [username]);
 
-            const newCart = await db.query("INSERT INTO carts (userid, price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", [result3.rows[0], 0, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largelbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox]);
+            const newCart = await db.query("INSERT INTO carts (userid, price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", ([parseInt(result3.rows[0]), 0, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largelbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox]));
 
             res.status(200).cookie('username', req.body.username).redirect('/shop');
         //something already exists in the database:

@@ -10,11 +10,15 @@ class Box extends Component {
     this.state = {
       chosenBox: props.location.state.chosenBox,
       boxList:props.location.state.boxList,
+      boxListurls:props.location.state.boxListurls,
       loggedIn: props.location.state.loggedIn,
       cart:props.location.state.cart,
       show: props.location.state.show,
-      desc: 'hblfehwsbfgewsjkfgergkherbnlgjkerbnjkgbnerljkgberlkgjberkjgbejkrggbwe',
-      item:[['smalljbox','mediumjbox','largejbox'],['smallkbox','mediumkbox','largekbox'],['smallcbox','mediumcbox','largecbox'],['smallmbox','mediummbox','largembox']]
+
+      desc: 'description',
+      itemurls: 'https://pusheen.com/wp-content/uploads/2019/08/Business.jpg',
+      items:'choose a box size'
+
     }
   }
 
@@ -26,16 +30,18 @@ class Box extends Component {
 
   render() {
 
-    const urls = 'https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg,https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg,https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg'
-    const items = '1,2,3'
+
+    const urls = this.state.itemurls
+    const items = this.state.items
+
 
     const spliturls = urls.split(',')
-    const splitItems = items.split(',')
+    const splititems = items.split(',')
 
     const itemImages = spliturls.map((el, i) => {
         return (
-          <div>
-            <p>{splitItems[i]}</p>
+          <div className='items'>
+            <p>{splititems[i]}</p>
             <img src={el}/>
           </div>
         )
@@ -86,7 +92,7 @@ class Box extends Component {
 
         <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2>
         <div>
-          <img src='https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg' />
+          <img src={this.state.boxListurls} />
           {/* <div class="MagicScroll" data-options="mode: carousel; height: 275px;">
             <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
             <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
@@ -100,25 +106,28 @@ class Box extends Component {
         </div> */}
           <div>
             <h1>{this.state.boxList} Snack Box</h1>
-            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h4>
-            <img src={this.state.desc}></img>
+            <h4>This is the {this.state.chosenBox}</h4>
+            <p>{this.state.desc}</p>
             
             <div className='itemImages'>
 
-              {itemImages}
+              
 
             </div>
             {/* this was the button to fetch from the db, I couldnt get it working on the s m l form below */}
-            {/* <button
+            <button
             onClick={() => {
               fetch('/shop/:smalljbox')
               .then(data => data.json())
 
               // .then(data => console.log(data.description))
-              .then((data) => this.setState({desc:data.imageurl}))
+              .then((data) => {
+                console.log(data)
+                this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurls})
+              })
               .catch((err) => console.log(err))
             }}
-            >ewhjfbhjwefb</button> */}
+            >ewhjfbhjwefb</button>
 
 
             
@@ -157,6 +166,7 @@ class Box extends Component {
             </form>
           </div>
         </div>
+        {itemImages}
         <Link to={'/shop/checkout'}>
           <button
             type="button"
