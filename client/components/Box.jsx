@@ -67,7 +67,19 @@ class Box extends Component {
           <div>
             <h1>{this.state.boxList} Snack Box</h1>
             <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h4>
-            {this.state.desc}
+            <img src={this.state.desc}></img>
+            <button
+            onClick={() => {
+              fetch('/shop/:smalljbox')
+              .then(data => data.json())
+
+              // .then(data => console.log(data.description))
+              .then((data) => this.setState({desc:data.imageurl}))
+              .catch((err) => console.log(err))
+
+              
+            }}
+            >ewhjfbhjwefb</button>
             <form method="POST" action='/addToCart'>
 
             <label>Select a size</label>
@@ -76,9 +88,10 @@ class Box extends Component {
                 <input type="radio" name="options" id="small" onClick={() => {
                   fetch('/shop/:small-j-box')
                   .then(data => desc = data)
+                  .then(() => this.setState({desc:fetcheddesc}))
                   .catch((err) => console.log(err))
 
-                  this.setState({desc:fetcheddesc})
+                  
                 }}/> Small
               </label>
               <label className="btn btn-primary active">
