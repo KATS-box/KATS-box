@@ -31,21 +31,13 @@ body {
     color: rgba(0, 0, 0, 0.76);
 }
 
-.cartform {
-    display: flex;
-    justify-content: space-around;
-    padding: 15px;
-}
+
 
 .mainSection {
     padding: 40px;
 }
 
-.all-items {
-    display: flex;
-    flex-wrap: wrap;
-    background-image: linear-gradient(to bottom right, #f7dbf0a1, #d4ebe7,#f7dbf0a1);
-}
+
 
 .fa-shopping-bag {
     position: absolute;
@@ -53,9 +45,88 @@ body {
     right: 10px;
 }
 
+.box-top {
+    display: flex;
+    margin: 25px 2.5%;
+    max-width: 95%;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #f9f9f994;
+}
+
+.btn {
+    background-color: #5ed6c2;
+    margin: 5px;
+}
+
+.btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle {
+    background-color: #F7DBF0;
+    color: #42b3a0;
+}
+
+.cartform {
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 15px;
+}
+
+.quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2%;
+}
+
+#qty {
+    margin: 5%;
+}
+
+.box-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-picture img {
+    width: 90%
+}
+
+.box-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    align-items: center;
+    margin: 20px;
+}
+
+.all-items {
+    display: flex;
+
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 25px 2.5%;
+    max-width: 95%;
+    flex-wrap: wrap;
+   
+    background-image: linear-gradient(to bottom right, #f7dbf0a1, #d4ebe7,#f7dbf0a1);
+}
+
 .items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 20%;
     padding: 10px;
     margin: 10px
+}
+
+.items img {
+    max-width: 150px;
 }
 
 #loginpage {
@@ -253,7 +324,7 @@ img {
     /* padding: 20px 10px; */
     display: flex;
     flex-direction: row;
-    background-color: #f8dcebe1;
+    background-color: #f8dcebd0;
     margin: 20px 0px;
     padding: 30px 0px 0px 0px;
     justify-content: center;
