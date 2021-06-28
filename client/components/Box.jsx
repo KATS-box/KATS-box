@@ -41,7 +41,7 @@ class Box extends Component {
         )
     })
 
-    console.log(document.getElementsByClassName('active'))
+
 
     return (
       <div>
@@ -122,7 +122,7 @@ class Box extends Component {
 
 
             
-            <form method="PUT" action={`/${this.state.item[this.state.chosenBox][document.getElementsByClassName('active').innerText]}`}>
+            <form method="PUT" action={`/shop/${this.state.boxList}Box`}>
 
             <label>Select a size</label>
             <div className="btn-group" data-toggle="buttons">
@@ -171,6 +171,10 @@ class Box extends Component {
             back
           </button>
         </Link>
+        <div>
+          {console.log(document.getElementsByClassName('active'))}
+          hello?
+        </div>
       </div>
     )
   };
