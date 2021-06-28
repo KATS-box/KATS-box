@@ -89,7 +89,7 @@ class Checkout extends Component {
             <br/>
             <strong>Taxes:</strong>${(this.state.cartSubtotal * 0.08).toFixed(2)}
             <br/>
-            <strong>Shipping:</strong> always free
+            <strong>Shipping:</strong> Free Shipping (3 to 5 Business Days)
             <br/>
             <strong>Total:</strong> ${(this.state.cartSubtotal * 1.08).toFixed(2)}
             <br/>
