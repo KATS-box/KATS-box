@@ -24,3 +24,7 @@ body {
     box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
     width: 20rem
 }
+
+img {
+    max-width: 300px;
+}

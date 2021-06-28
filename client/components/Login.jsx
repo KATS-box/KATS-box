@@ -36,11 +36,11 @@ const Login = props => {
 
       <div className="tab-pane" id="b">
         <form method="POST" action='/signup'>
-          <input type='text' placeholder='first name'/>
-          <input type='text' placeholder='last name'/>
-          <input type='text' placeholder='email'/>
-          <input type='text' placeholder='username'/>
-          <input type='text' placeholder='password'/>
+          <input type='text' name='firstname' placeholder='first name'/>
+          <input type='text' name='lastname' placeholder='last name'/>
+          <input type='text' name='email' placeholder='email'/>
+          <input type='text' name='username' placeholder='username'/>
+          <input type='text' name='pass' placeholder='password'/>
           <input 
           type='submit' 
           value="Sign Up" 

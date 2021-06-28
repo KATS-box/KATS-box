@@ -7,10 +7,14 @@ const PORT = 3000;
 const nodemailer = require('nodemailer');
 const db = require('./models');
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 express.static(path.resolve(__dirname, '../client'))
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 100000000000}));
+
 
 app.get('/index.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.js'))
@@ -51,17 +55,17 @@ app.get('/shop', async (req, res) => {
 //post request to signup page: get the username and email and pass sure they are not in the database yet!
 app.post('/signup', async (req, res, next) => {
     try{
+        
         let username = req.body.username;
         let email = req.body.email;
-
+        console.log(username, email)
         const result1 = await db.query('select * from users where username = $1', [username]);
-
         const result2 = await db.query('select * from users where email = $1', [email]);
 
         //if both is not in the database, store both
         if (result1.rows.length === 0 && result2.rows.length === 0) {
             const results = await db.query("INSERT INTO users (firstname, lastname, username, pass, email) values ($1, $2, $3, $4, $5) returning *;", [req.body.firstname, req.body.lastname, req.body.username, req.body.pass, req.body.email]);
-            res.status(200).cookie('username', req.body.username).redirect('/shop');
+            res.status(200).cookie('username', req.body.username).redirect('/');
         //something already exists in the database:
         } else {
             if (result1.rows.length !== 0 && result2.rows.length !== 0) {
