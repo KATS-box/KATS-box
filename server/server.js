@@ -12,6 +12,9 @@ app.use(cors());
 app.use(express.json());
 express.static(path.resolve(__dirname, '../client'))
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 100000000000}));
+
 app.get('/index.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.js'))
 })
@@ -61,6 +64,12 @@ app.post('/signup', async (req, res, next) => {
         //if both is not in the database, store both
         if (result1.rows.length === 0 && result2.rows.length === 0) {
             const results = await db.query("INSERT INTO users (firstname, lastname, username, pass, email) values ($1, $2, $3, $4, $5) returning *;", [req.body.firstname, req.body.lastname, req.body.username, req.body.pass, req.body.email]);
+
+            //create shopping cart for user upon sign up
+            const result3 = await db.query('select userid from users where username = $1', [username]);
+
+            const newCart = await db.query("INSERT INTO carts (userid, price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", [result3.rows[0], 0, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largelbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox]);
+
             res.status(200).cookie('username', req.body.username).redirect('/shop');
         //something already exists in the database:
         } else {
@@ -322,9 +331,167 @@ app.get('/shop/bag/:id', async (req, res) => {
 
 
 
-// when clicking on add to cart button,  the databse:
-app.put('/shop/bag/:id',  ) 
+//  put request to update cart when add to cart is cliked, need info on what box it is, and the quality,
+app.put('/shop/:smalljbox', async (req, res) => {
 
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:smalljbox', err); 
+        }
+}); 
+
+
+
+//to get korean box and its items to show up on the page, when you click on it!
+app.put('/shop/:mediumjbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:mediumjbox', err); 
+        }
+}); 
+
+//to get korean box and its items to show up on the page, when you click on it!
+app.put('/shop/:largejbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:largejbox', err); 
+        }
+}); 
+
+
+//to get korean box and its items to show up on the page, when you click on it!
+app.put('/shop/:smallkbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:smallkbox', err); 
+        }
+}); 
+
+//to get korean box and its items to show up on the page, when you click on it!
+app.put('/shop/:mediumkbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:mediumkbox', err); 
+        }
+}); 
+
+
+app.put('/shop/:largekbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:largekbox', err); 
+        }
+}); 
+
+
+app.put('/shop/:smallcbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:smallcbox', err); 
+        }
+}); 
+
+
+app.put('/shop/:mediumcbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:mediumcbox', err); 
+        }
+}); 
+
+
+app.put('/shop/:largecbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to shop/:mediumcbox', err); 
+        }
+}); 
+
+app.put('/shop/:smallmbox', async (req, res) => {
+    const quantity = req.body.quantity;
+    const total = req.body.total;
+    const box = req.params;
+ 
+    try{
+            const results = await db.query("UPDATE carts SET $1 = $2, price = $3 returning *", [box, quantity, total]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in put method to /shop/:smallmbox', err); 
+        }
+}); 
+
+
+app.put('/shop/:mediummbox', async (req, res) => {
+    try{
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/mediummbox', err); 
+    }
+});
+
+app.put('/shop/:largembox', async (req, res) => {
+    try{
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/largembox', err); 
+    }
+});
 
 app.listen(PORT,  ()=> {
     console.log(`listening on port, ${PORT}`)
