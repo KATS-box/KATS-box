@@ -115,7 +115,7 @@ class Shop extends Component {
 
           
         <header className="pageHeader">
-          <h2>Kaden's Asian Tasty Snacks</h2>
+          <h2 id="subheader">Kaden's Asian Tasty Snacks</h2>
           <div className='allCards'>
           <Link to={{
             pathname:'/shop/box/:japanese-box',

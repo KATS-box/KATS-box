@@ -522,6 +522,32 @@ app.post('/MixedBox', async (req, res) => {
     }
 });
 
+app.put('/shop/MixedBox/Delete', async (req, res) => {
+
+    let obj = Object.keys(req.query);
+    let boxSize = obj[0];
+    let quantity = req.query[obj[1]];
+    let username = req.query[obj[2]];
+    try{
+        if(boxSize === '1') {
+            let updateRow = smallmbox;
+            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
+            res.status(200).json(results.rows[0])
+        } else if (boxSize === '2') {
+            let updateRow = mediummbox;
+            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
+            res.status(200).json(results.rows[0])
+        } else if (boxSize === '3') {
+            let updateRow = largembox;
+            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
+            res.status(200).json(results.rows[0])
+        }
+    } catch(err) {
+        console.log('Error found in get method to /shop/MixedBox', err); 
+    }
+});
+
+
 app.listen(PORT,  ()=> {
     console.log(`listening on port, ${PORT}`)
 });
