@@ -8,7 +8,13 @@ const Login = props => {
   return (
   <div id='loginpage'>
     <Header />
-
+    <Link to={'/confirmation'}>
+      <button
+        type="button"
+      >
+        confirmation page
+      </button>
+    </Link>
     <Link to={'/shop'}>
       <button 
         type="button"

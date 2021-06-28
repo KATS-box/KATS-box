@@ -39,19 +39,23 @@ app.get('/', async (req, res) => {
     }
 })
 
-//home page: need boxes name and boxes image to render on page!
-app.get('/shop', async (req, res) => {
-    try{
-        const results = await db.query("select * from boxes;");
-        res.status(200).json({
-            status: "success",     
-            boxes: results.rows,
-        });
+app.get('/confirmation', async (req, res) => {
+    try {
+        console.log('send me the html please')
+        await res.sendFile(path.join(__dirname, '../client/public/index.html'))
     } catch(err) {
-        console.log('Error found in get method to /shop',err); 
+        console.log('Error found in get method to /home',err); 
     }
-});
+})
 
+app.get('/shop', async (req, res) => {
+    try {
+        console.log('send me the html please')
+        await res.sendFile(path.join(__dirname, '../client/public/index.html'))
+    } catch(err) {
+        console.log('Error found in get method to /home',err); 
+    }
+})
 
 //post request to signup page: get the username and email and pass sure they are not in the database yet!
 app.post('/signup', async (req, res, next) => {
@@ -69,7 +73,7 @@ app.post('/signup', async (req, res, next) => {
 
             //create shopping cart for user upon sign up
 
-            const newCart = await db.query("INSERT INTO carts (price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox, username) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, n$10, $11, $12, $13, $14) returning *;", ([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, username]));
+            const newCart = await db.query("INSERT INTO carts (price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox, username) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", ([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, username]));
 
             res.status(200).cookie('username', req.body.username).redirect('/shop');
         //something already exists in the database:
@@ -144,10 +148,11 @@ app.post('/login', async (req, res, next) => {
 
 
 //to get japanese box and its items to show up on the page, when you click on it!
-app.get('/shop/:smalljbox', async (req, res) => {
+app.get('/smalljbox', async (req, res) => {
     try{
-
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        console.log('small route')
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [smalljbox]);
+        console.log('small box')
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/smalljbox', err); 
@@ -155,20 +160,20 @@ app.get('/shop/:smalljbox', async (req, res) => {
 });
 
 
-app.get('/shop/:mediumjbox', async (req, res) => {
+app.get('/mediumjbox', async (req, res) => {
     try{
 
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['mediumjbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/mediumjbox', err); 
     }
 });
 
-app.get('/shop/:largejbox', async (req, res) => {
+app.get('/largejbox', async (req, res) => {
     try{
 
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['largejbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/largejbox', err); 
@@ -176,10 +181,10 @@ app.get('/shop/:largejbox', async (req, res) => {
 });
 
 
-app.get('/shop/:smallkbox', async (req, res) => {
+app.get('/smallkbox', async (req, res) => {
     try{
 
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['smallkbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/smallkbox', err); 
@@ -187,9 +192,9 @@ app.get('/shop/:smallkbox', async (req, res) => {
 });
 
 
-app.get('/shop/:mediumkbox', async (req, res) => {
+app.get('/mediumkbox', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['mediumkboxs']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/mediumkbox', err); 
@@ -197,9 +202,9 @@ app.get('/shop/:mediumkbox', async (req, res) => {
 });
 
 
-app.get('/shop/:largekbox', async (req, res) => {
+app.get('/largekbox', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['largekbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/largekbox', err); 
@@ -207,9 +212,9 @@ app.get('/shop/:largekbox', async (req, res) => {
 });
 
 
-app.get('/shop/:smallcbox', async (req, res) => {
+app.get('/smallcbox', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['smallcbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/smallcbox', err); 
@@ -217,10 +222,10 @@ app.get('/shop/:smallcbox', async (req, res) => {
 });
 
 
-app.get('/shop/:mediumcbox', async (req, res) => {
+app.get('/mediumcbox', async (req, res) => {
     try{
 
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['mediumcbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/mediumcbox', err); 
@@ -228,22 +233,22 @@ app.get('/shop/:mediumcbox', async (req, res) => {
 });
 
 
-app.get('/shop/:largecbox', async (req, res) => {
+app.get('/largecbox', async (req, res) => {
     try{
         // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
 
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['largecbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/largecbox', err); 
     }
 });
 
-app.get('/shop/:smallmbox', async (req, res) => {
+app.get('/smallmbox', async (req, res) => {
     try{
         // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
 
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['smallmbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/smallmbox', err); 
@@ -251,22 +256,22 @@ app.get('/shop/:smallmbox', async (req, res) => {
 });
 
 
-app.get('/shop/:mediummbox', async (req, res) => {
+app.get('/mediummbox', async (req, res) => {
     try{
         // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
 
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['mediummbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/mediummbox', err); 
     }
 });
 
-app.get('/shop/:largembox', async (req, res) => {
+app.get('/largembox', async (req, res) => {
     try{
         // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
 
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['largembox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/largembox', err); 
@@ -316,7 +321,7 @@ app.post('shop/checkout', async (req, res) => {
 
 
 // get cart when click on the bag icon: 
-app.get('/shop/bag/:id', async (req, res) => {
+app.get('/getCart', async (req, res) => {
     try{
         
             const results = await db.query("select * from carts WHERE userid = $1;", [req.params]);
@@ -356,14 +361,33 @@ app.post('/shop/KoreanBox', async (req, res) => {
 
 //to get korean box and its items to show up on the page, when you click on it!
 app.post('/JapaneseBox', async (req, res) => {
-    console.log('adding to cart')
-    console.log(req.body)
     let obj = Object.keys(req.body);
-    console.log(obj)
-    let boxSize = obj[0];
-    console.log(boxSize)
-    let quantity = req.body[obj[1]];
-    let username = req.body[obj[2]];
+    let boxSize;
+    let quantity;
+    let username;
+    if(obj.length === 4) {
+        if(obj[0] === '1') {
+            console.log('its 1')
+            boxSize = 1
+        } else {
+            console.log('its 3')
+            boxSize = 3
+        }
+        quantity = req.body[obj[2]];
+        username = req.body[obj[3]];
+    
+    } else if (obj.length !== 4){
+        console.log('its 2')
+        boxSize = 2
+        quantity = req.body[obj[1]];
+        username = req.body[obj[2]];
+    }
+    console.log(req.body, obj)
+    console.log(boxSize,quantity,username)
+
+    // let boxSize = obj[0];
+    // let quantity = req.body[req.body[1]];
+    // let username = req.body[obj[2]];
     try{
         if(boxSize === '1') {
             let updateRow = 'smalljbox';
