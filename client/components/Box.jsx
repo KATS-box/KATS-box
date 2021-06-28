@@ -67,7 +67,7 @@ class Box extends Component {
               <div className='cartItems'>
                 <p>{el}:{cartContents[el]}</p>
               </div>
-              <button
+              {/* <button
               onClick={() => {
                 fetch('/deleteItem', {
                   method: 'PUT',
@@ -80,7 +80,16 @@ class Box extends Component {
               }}
               >
                 delete
-              </button>
+              </button> */}
+              <i class="fas fa-trash-alt"
+              onClick={() => {
+                fetch('/deleteItem', {
+                  method: 'DELETE',
+                  headers: 'application/json',
+                  body: cartContents[el],
+                })
+              }}
+              ></i>
             </div>
           )
         }
@@ -134,22 +143,9 @@ class Box extends Component {
         </ShoppingCartModal>
 
 
-
-
-        {/* <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2> */}
         <div>
           <img src={this.state.boxListurls} />
-          {/* <div className="MagicScroll" data-options="mode: carousel; height: 275px;">
-            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
-            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
-            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
-            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
-            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
-            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
-            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
-            <img src="https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg" />
-            ...
-        </div> */}
+
           <div>
             <h1>{this.state.boxList} Snack Box</h1>
             <h2>{this.state.price}</h2>
