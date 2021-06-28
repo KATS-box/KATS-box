@@ -42,10 +42,6 @@ app.get('/shop', async (req, res) => {
 //post request to signup page: get the username and email and pass sure they are not in the database yet!
 app.post('/signup', async (req, res, next) => {
     try{
-        console.log('in signup middleware')
-        res.cookie('user','jimmy')
-        console.log('sent')
-        res.send('sent cookie')
         let username = req.body.username;
         let email = req.body.email;
 
@@ -56,7 +52,6 @@ app.post('/signup', async (req, res, next) => {
         //if both is not in the database, store both
         if (result1.rows.length === 0 && result2.rows.length === 0) {
             const results = await db.query("INSERT INTO users (firstname, lastname, username, pass, email) values ($1, $2, $3, $4, $5) returning *;", [req.body.firstname, req.body.lastname, req.body.username, req.body.pass, req.body.email]);
-            // res.cookie('name','jimmy')
             res.status(200).redirect('/shop');
         //something already exists in the database:
         } else {
