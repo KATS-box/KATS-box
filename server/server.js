@@ -134,91 +134,174 @@ app.post('/login', async (req, res, next) => {
 //to get japanese box and its items to show up on the page, when you click on it!
 app.get('/shop/:smalljbox', async (req, res) => {
     try{
-        // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
-
-        const results = await db.query("select * from boxes WHERE boxid = 5;")
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
         res.status(200).json(results.rows[0])
     } catch(err) {
-        console.log('Error found in get method to shop/small-j-box', err); 
+        console.log('Error found in get method to shop/smalljbox', err); 
     }
 });
 
 
 
 //to get korean box and its items to show up on the page, when you click on it!
-app.get('/shop/:medium-j-box', async (req, res) => {
+app.get('/shop/:mediumjbox', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes WHERE boxname = $1;",[req.params.medium-j-box]);
-        res.status(200).json({
-            status: "success",     
-            items: results.rows[0],
-        });
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
     } catch(err) {
-        console.log('Error found in get method to shop/medium-j-box', err); 
+        console.log('Error found in get method to shop/mediumjbox', err); 
     }
 });
 
-app.get('/shop/:large-j-box', async (req, res) => {
+//to get korean box and its items to show up on the page, when you click on it!
+app.get('/shop/:largejbox', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes WHERE boxname = $1;",[req.params.large-j-box]);
-        res.status(200).json({
-            status: "success",     
-            items: results.rows[0],
-        });
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
     } catch(err) {
-        console.log('Error found in get method to shop/large-j-box', err); 
-    }
-});
-
-
-// app.get('/shop/:lar-j-box', async (req, res) => {
-//     try{
-//         const results = await db.query("select * from boxes WHERE boxname = $1;",[req.params.large-j-box]);
-//         res.status(200).json({
-//             status: "success",     
-//             items: results.rows[0],
-//         });
-//     } catch(err) {
-//         console.log('Error found in get method to shop/large-j-box', err); 
-//     }
-// });
-
-//to get chinese box and its items to show up on the page, when you click on it!
-app.get('/shop/:chinese-box', async (req, res) => {
-    try{
-        const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.chinese-box]);
-        res.status(200).json({
-            status: "success",     
-            items: results.rows,
-        });
-    } catch(err) {
-        console.log('Error found in get method to home/chinese-box', err); 
+        console.log('Error found in get method to shop/largejbox', err); 
     }
 });
 
 
-
-//to get mixed box and its items to show up on the page, when you click on it!
-app.get('/shop/:mixed-box', async (req, res) => {
+//to get korean box and its items to show up on the page, when you click on it!
+app.get('/shop/:smallkbox', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.mixed-box]);
-        res.status(200).json({
-            status: "success",     
-            items: results.rows,
-        });
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
     } catch(err) {
-        console.log('Error found in get method to home/mixed-box', err); 
+        console.log('Error found in get method to shop/smallkbox', err); 
     }
 });
+
+//to get korean box and its items to show up on the page, when you click on it!
+app.get('/shop/:mediumkbox', async (req, res) => {
+    try{
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/mediumkbox', err); 
+    }
+});
+
+
+app.get('/shop/:largekbox', async (req, res) => {
+    try{
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/largekbox', err); 
+    }
+});
+
+
+app.get('/shop/:smallcbox', async (req, res) => {
+    try{
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/smallcbox', err); 
+    }
+});
+
+
+app.get('/shop/:mediumcbox', async (req, res) => {
+    try{
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/mediumcbox', err); 
+    }
+});
+
+
+app.get('/shop/:largecbox', async (req, res) => {
+    try{
+        // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/largecbox', err); 
+    }
+});
+
+app.get('/shop/:smallmbox', async (req, res) => {
+    try{
+        // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/smallmbox', err); 
+    }
+});
+
+
+app.get('/shop/:mediummbox', async (req, res) => {
+    try{
+        // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/mediummbox', err); 
+    }
+});
+
+app.get('/shop/:largembox', async (req, res) => {
+    try{
+        // const results = await db.query("select * from boxes RIGHT JOIN items on boxes.boxID = items.BoxID WHERE boxes.boxName = $1;",[req.params.japaness-box]);
+
+        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        res.status(200).json(results.rows[0])
+    } catch(err) {
+        console.log('Error found in get method to shop/largembox', err); 
+    }
+});
+
+
 
 //post to checkout page, to add into the sales table in database
-app.post('/checkout', async (req, res) => {
+app.post('shop/checkout', async (req, res) => {
     try{
-        const results = await db.query("INSERT INTO sales (userid, boxid1, boxid2, boxid3, boxid4, progress, price) values ($1, $2, $3, $4, $5, $6, $7) returning *;", [req.body.userid, req.body.boxid1, req.body.boxid2, req.body.boxid3, req.body.boxid4, 'order received', req.body.price]);
+
+        const email = req.body.email;
+        const username = req.body.username; 
+        const total = req.body.total;
+
+
+
+        const results = await db.query("INSERT INTO sales (userid, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallcbox, mediumcbox, largecbox, smallmbox, mediummbox, largembox, progress, price) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *;", [req.body.userid, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largekbox, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox, 'order received', req.body.price]);
 
         const deleteCart = await db.query("DELETE FROM cart WHERE userid = $1", [req.body.userid]);
 
-        // Then clear the cart
+        // Then clear the cart;
+        //...
+        //...
+        //...
+
+        //then send mail:
+        const options = {
+            from: "katsbox118@outlook.com",
+            to: email,
+            subject: `Thank you for your purchase ${username}! A follow up email will be send when your order is processed.`,
+            text: `
+            Here is your receipt:
+            `
+        };
+        
+        transporter.sendMail(options, function(err, info) {
+            if (err) {
+                console.log(err);
+                return;
+            } console.log("Sent", info.response)
+        });
+        //
         res.status(201).redirect('/confirmation');
     } catch(err) {
         console.log(err);
@@ -226,7 +309,22 @@ app.post('/checkout', async (req, res) => {
 });
 
 
-//to insert into the sales table when user checks out:
+// get cart when click on the bag icon: 
+app.get('/shop/bag/:id', async (req, res) => {
+    try{
+        
+            const results = await db.query("select * from carts WHERE userid = $1;", [req.params]);
+            res.status(200).json(results.rows[0])
+        } catch(err) {
+            console.log('Error found in get method to shop/bag', err); 
+        }
+});
+
+
+
+// when clicking on add to cart button,  the databse:
+app.put('/shop/bag/:id',  ) 
+
 
 app.listen(PORT,  ()=> {
     console.log(`listening on port, ${PORT}`)
