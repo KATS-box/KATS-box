@@ -143,10 +143,12 @@ class Box extends Component {
         </ShoppingCartModal>
 
 
-        <div>
-          <img src={this.state.boxListurls} />
+        <div className="box-top">
+          <div className="box-picture">
+            <img src={this.state.boxListurls} />
+          </div>
 
-          <div>
+          <div className="box-options">
             <h1>{this.state.boxList} Snack Box</h1>
             <h2>{this.state.price}</h2>
             <p>{this.state.desc}</p>
@@ -197,15 +199,18 @@ class Box extends Component {
                   Large
                 </label>
               </div>
-
-              <label>qty :</label>
-              <select id="qty" name="qty" required>
+              <div className="quantity">
+                <label>qty</label>
+                <label>:</label>
+                <select id="qty" name="qty" required>
+              
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
               </select>
+              </div>
               <input type="hidden" id="custId" name="username" value={document.cookie.split('=')[1]}></input>
               <input type='submit'></input>
             </form>
