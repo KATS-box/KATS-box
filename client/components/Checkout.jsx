@@ -24,6 +24,7 @@ const Checkout = props => {
       My Cart
 
       {'IMPORT CART ITEM HERE'}
+      
 
       <hr/>
       Subtotal: {'whatever is the total price added from database'}

@@ -14,6 +14,7 @@ class Box extends Component {
       cart:props.location.state.cart,
       show: props.location.state.show,
       desc: 'hblfehwsbfgewsjkfgergkherbnlgjkerbnjkgbnerljkgberlkgjberkjgbejkrggbwe',
+      item:[['smalljbox','mediumjbox','largejbox'],['smallkbox','mediumkbox','largekbox'],['smallcbox','mediumcbox','largecbox'],['smallmbox','mediummbox','largembox']]
     }
   }
 
@@ -26,7 +27,7 @@ class Box extends Component {
   render() {
 
     const urls = 'https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg,https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg,https://pbs.twimg.com/profile_images/1391813117840084996/g76rVZ-5.jpg'
-    const items = ['1', '2', '3']
+    const items = '1,2,3'
 
     const spliturls = urls.split(',')
     const splitItems = items.split(',')
@@ -40,6 +41,7 @@ class Box extends Component {
         )
     })
 
+    console.log(document.getElementsByClassName('active'))
 
     return (
       <div>
@@ -60,7 +62,12 @@ class Box extends Component {
           <hr/>
 
          {'IMPORT ITEM HERE'}
-
+          {/* 
+          fetch('/getCart')
+          .then(data => data.json())
+          .then()
+          .catch(err => console.log('error getting cart',err))
+          */}
          <hr/>
          Subtotal: {'whatever is the total price added from database'}
          <Link to={'/shop/checkout'}>
@@ -115,12 +122,12 @@ class Box extends Component {
 
 
             
-            <form method="POST" action='/addToCart'>
+            <form method="PUT" action={`/${this.state.item[this.state.chosenBox][document.getElementsByClassName('active').innerText]}`}>
 
             <label>Select a size</label>
             <div className="btn-group" data-toggle="buttons">
               <label className="btn btn-primary">
-                <input type="radio" name="options" id="small" 
+                <input type="radio" name="options" id="1" 
                   onClick={() => {
                     fetch('/shop/:smalljbox')
                     .then(data => data.json())
@@ -128,13 +135,13 @@ class Box extends Component {
                     .then(() => console.log('ive been clicked small'))
                     .catch((err) => console.log(err))
                   }}
-                /> Small
+                />Small
               </label>
               <label className="btn btn-primary active">
-                <input type="radio" name="options" id="medium" defaultChecked/> Medium
+                <input type="radio" name="options" id="2" defaultChecked/>Medium
               </label>
               <label className="btn btn-primary">
-                <input type="radio" name="options" id="large"/> Large
+                <input type="radio" name="options" id="3"/>Large
               </label>
             </div>
 
