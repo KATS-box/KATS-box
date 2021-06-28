@@ -13,3 +13,14 @@ body {
     flex-direction: column;
     justify-content: space-around;
 }
+
+#modal {
+    position: absolute;
+    display: inline-block;
+    padding: 0.8rem;
+    color: black;
+    background: #f3f3f3;
+    border: 1px solid lightgray;
+    box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
+    width: 20rem
+}

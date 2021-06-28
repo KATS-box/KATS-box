@@ -8,6 +8,7 @@ const Login = props => {
   return (
   <div id='loginpage'>
     <Header />
+
     <Link to={'/shop'}>
       <button 
         type="button"
@@ -22,7 +23,7 @@ const Login = props => {
 
     <div className="tab-content">
       <div className="tab-pane active" id="a">
-        <form method="POST" action='/login' onSubmit={() => history.push('/shop')}>
+        <form method="POST" action='/login'>
           <input className='username' type='text' placeholder='username'/>
           <input className='pass' type='text' placeholder='password'/>
           <input 
@@ -41,10 +42,7 @@ const Login = props => {
           <input type='text' placeholder='password'/>
           <input 
           type='submit' 
-          value="Sign In" 
-          onClick={
-            () => history.push('/shop')
-          }
+          value="Sign Up" 
           ></input>
         </form>
       </div>

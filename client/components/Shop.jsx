@@ -28,15 +28,31 @@ class Shop extends Component {
     return (
       <section className="mainSection">
         <Header />
+        
 
+        <i className="fas fa-shopping-bag"
+          onClick={e => {
+            this.showModal();
+          }}/>
+        
+          <ShoppingCartModal show={this.state.show}>
+          <div id='modal'>
+            my cart ({'number of items in cart from database'})
+            <hr/>
 
+          {'IMPORT ITEM HERE'}
 
-        <ShoppingCartModal show={this.state.show}>This is your shopping cart</ShoppingCartModal>
-        <button onClick={e => {
-              this.showModal();
-         }}
-          > Shopping Cart </button>
-
+          <hr/>
+          Subtotal: {'whatever is the total price added from database'}
+          <Link to={'/shop/checkout'}>
+              <button
+                type="button"
+              >
+                go to checkout
+              </button>
+            </Link>
+            </div>
+          </ShoppingCartModal>
 
           
         <header className="pageHeader">
