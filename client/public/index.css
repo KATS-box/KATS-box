@@ -1,14 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Shadow&display=swap');
 /* lightgreen --- #CDF0EA
 offwhite --- #F9F9F9
 lightpink --- #F7DBF0
 lightpurple --- #BEAEE2 */
 
+p, h2, h3, h4, h5, a, input {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 800;
+    font-size: larger;
+}
+
+h1 {
+    font-family: 'Londrina Shadow', cursive;
+    font-size: 70px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+#subheader {
+    text-align: center;
+    font-size: 40px;
+}
+
+
 
 body {
-    background-color: #F9F9F9;
+    background-color: #CDF0EA;
     color: rgba(0, 0, 0, 0.76);
 }
 
@@ -46,6 +67,7 @@ button {
 
 input {
     background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
+    box-sizing: 200px;
 }
 
 .allCards {
@@ -83,11 +105,6 @@ input {
     /* justify-content: space-around; */
 }
 
-.help-column {
-    /* padding: 20px; */
-    margin: 20px 20px;
-}
-
 #form {
     background-color: white;
     display: flex;
@@ -118,26 +135,38 @@ img {
     /* padding: 20px 10px; */
     display: flex;
     flex-direction: row;
-    background-color: #CDF0EA;
+    background-color: #f8dceb;
+    margin: 0px;
+    padding: 0px;
     justify-content: flex-start;
     /* align-content: flex-start; */
     /* align-items: center; */
 }
 
+i {
+    font-size: 40px;
+    margin-right: 10px;
+}
 
 
+section.mainSection {
+    padding: 0px;
+}
+
+/* 
 #about {
 
     border: 1px solid black;
     padding: 10px 10px;
     margin: 20px 0px;
-}
+} */
 
 #subscribe {
     padding: 20px 10px;
     display: flex;
 
     max-width: 33%;
+    min-width: 32.5%;
 }
 
 #moreInfo {
@@ -146,6 +175,60 @@ img {
 
 .left-footer {
     padding: 20px 10px;
-
     max-width: 33%;
+    min-width: 32.5%;
+}
+
+.helpcolumn {
+    max-width: 33%;
+    min-width: 32.5%;
+}
+
+#facebook, #youtube, #snapchat, #pinterest, #insta, #twitter {
+    font-size: 36px;
+    color:black
+}
+
+#facebook:hover {
+    color:#1c90d3;
+    font-size: 40px;
+}
+
+#youtube:hover {
+   color: red;
+   font-size: 40px;
+}
+
+#snapchat:hover {
+   color: rgb(235, 235, 94);
+   font-size: 40px;
+}
+
+#pinterest:hover {
+   color: red;
+   font-size: 40px;
+}
+
+#insta:hover {
+   color: rgb(197, 57, 197);
+   font-size: 40px;
+}
+
+#twitter:hover {
+   color: rgb(88, 188, 235);
+   font-size: 40px;
+}
+
+
+button {
+    text-align: center;
+}
+
+img.card-img-top {
+    height: 300px;
+    width: 460px;
+}
+
+select#state {
+    background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
 }

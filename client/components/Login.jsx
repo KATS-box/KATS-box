@@ -24,8 +24,8 @@ const Login = props => {
     </Link>
 
     <ul className="nav nav-tabs">
-      <li><a href="#a" data-toggle="tab">Log In</a></li>
-      <li><a href="#b" data-toggle="tab">Sign Up</a></li>
+      <button id="login"><a href="#a" data-toggle="tab">Log In</a></button>
+      <button id="signup"><a href="#b" data-toggle="tab">Sign Up</a></button>
     </ul>
 
     <div className="tab-content">
