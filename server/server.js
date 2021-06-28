@@ -142,9 +142,15 @@ app.post('/login', async (req, res, next) => {
 
 
 //to get japanese box and its items to show up on the page, when you click on it!
-app.get('/shop/:smalljbox', async (req, res) => {
+app.get('/shop/JapaneseBox', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [req.params]);
+        if(req.body.options === 'Small') {
+            const results = await db.query("select * from boxes WHERE boxname = $1;", ['smalljbox']);
+        } else if (req.body.options === 'Medium') {
+            const results = await db.query("select * from boxes WHERE boxname = $1;", ['mediumjbox']);
+        } else {
+            const results = await db.query("select * from boxes WHERE boxname = $1;", ['largejbox']);
+        }
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/smalljbox', err); 

@@ -14,9 +14,11 @@ class Box extends Component {
       loggedIn: props.location.state.loggedIn,
       cart:props.location.state.cart,
       show: props.location.state.show,
+
       desc: 'description',
       itemurls: 'https://pusheen.com/wp-content/uploads/2019/08/Business.jpg',
       items:'choose a box size'
+
     }
   }
 
@@ -28,8 +30,10 @@ class Box extends Component {
 
   render() {
 
+
     const urls = this.state.itemurls
     const items = this.state.items
+
 
     const spliturls = urls.split(',')
     const splititems = items.split(',')
@@ -42,6 +46,7 @@ class Box extends Component {
           </div>
         )
     })
+
 
 
     return (
@@ -63,7 +68,12 @@ class Box extends Component {
           <hr/>
 
          {'IMPORT ITEM HERE'}
-
+          {/* 
+          fetch('/getCart')
+          .then(data => data.json())
+          .then()
+          .catch(err => console.log('error getting cart',err))
+          */}
          <hr/>
          Subtotal: {'whatever is the total price added from database'}
          <Link to={'/shop/checkout'}>
@@ -121,12 +131,12 @@ class Box extends Component {
 
 
             
-            <form method="POST" action='/addToCart'>
+            <form method="PUT" action={`/shop/${this.state.boxList}Box`}>
 
             <label>Select a size</label>
             <div className="btn-group" data-toggle="buttons">
               <label className="btn btn-primary">
-                <input type="radio" name="options" id="small" 
+                <input type="radio" name="options" id="1" 
                   onClick={() => {
                     fetch('/shop/:smalljbox')
                     .then(data => data.json())
@@ -134,13 +144,13 @@ class Box extends Component {
                     .then(() => console.log('ive been clicked small'))
                     .catch((err) => console.log(err))
                   }}
-                /> Small
+                />Small
               </label>
               <label className="btn btn-primary active">
-                <input type="radio" name="options" id="medium" defaultChecked/> Medium
+                <input type="radio" name="options" id="2" defaultChecked/>Medium
               </label>
               <label className="btn btn-primary">
-                <input type="radio" name="options" id="large"/> Large
+                <input type="radio" name="options" id="3"/>Large
               </label>
             </div>
 
@@ -171,6 +181,10 @@ class Box extends Component {
             back
           </button>
         </Link>
+        <div>
+          {console.log(document.getElementsByClassName('active'))}
+          hello?
+        </div>
       </div>
     )
   };
