@@ -31,8 +31,8 @@ const Login = props => {
     <div className="tab-content">
       <div className="tab-pane active" id="a">
         <form method="POST" action='/login'>
-          <input className='username' type='text' placeholder='username'/>
-          <input className='pass' type='text' placeholder='password'/>
+          <input className='username' name='username' type='text' placeholder='username'/>
+          <input className='pass' name='pass' type='text' placeholder='password'/>
           <input 
           type='submit' 
           value="Log In" 
