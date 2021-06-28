@@ -39,6 +39,22 @@ app.get('/', async (req, res) => {
     }
 })
 
+app.get('/magicscroll.js', async (req, res) => {
+    try {
+        await res.sendFile(path.join(__dirname, '../client/public/magicscroll.js'))
+    } catch(err) {
+        console.log('Error found in get method to /home',err); 
+    }
+})
+
+app.get('/magicscroll.css', async (req, res) => {
+    try {
+        await res.sendFile(path.join(__dirname, '../client/public/magicscroll.css'))
+    } catch(err) {
+        console.log('Error found in get method to /home',err); 
+    }
+})
+
 app.get('/confirmation', async (req, res) => {
     try {
         console.log('send me the html please')
@@ -150,9 +166,7 @@ app.post('/login', async (req, res, next) => {
 //to get japanese box and its items to show up on the page, when you click on it!
 app.get('/smalljbox', async (req, res) => {
     try{
-        console.log('small route')
-        const results = await db.query("select * from boxes WHERE boxname = $1;", [smalljbox]);
-        console.log('small box')
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['smalljbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/smalljbox', err); 
@@ -194,7 +208,7 @@ app.get('/smallkbox', async (req, res) => {
 
 app.get('/mediumkbox', async (req, res) => {
     try{
-        const results = await db.query("select * from boxes WHERE boxname = $1;", ['mediumkboxs']);
+        const results = await db.query("select * from boxes WHERE boxname = $1;", ['mediumkbox']);
         res.status(200).json(results.rows[0])
     } catch(err) {
         console.log('Error found in get method to shop/mediumkbox', err); 
@@ -323,7 +337,6 @@ app.post('shop/checkout', async (req, res) => {
 // get cart when click on the bag icon: 
 app.get('/getCart', async (req, res) => {
     try{
-        
             const results = await db.query("select * from carts WHERE userid = $1;", [req.params]);
             res.status(200).json(results.rows[0])
         } catch(err) {
@@ -332,7 +345,7 @@ app.get('/getCart', async (req, res) => {
 });
 
 
-app.post('/shop/KoreanBox', async (req, res) => {
+app.post('/KoreanBox', async (req, res) => {
 
     let obj = Object.keys(req.query);
     let boxSize = obj[0];
@@ -408,7 +421,7 @@ app.post('/JapaneseBox', async (req, res) => {
 });
 
 
-app.post('/shop/ChineseBox', async (req, res) => {
+app.post('/ChineseBox', async (req, res) => {
 
     let obj = Object.keys(req.query);
     let boxSize = obj[0];
@@ -433,7 +446,7 @@ app.post('/shop/ChineseBox', async (req, res) => {
     }
 });
 
-app.post('/shop/MixedBox', async (req, res) => {
+app.post('/MixedBox', async (req, res) => {
 
     let obj = Object.keys(req.query);
     let boxSize = obj[0];
