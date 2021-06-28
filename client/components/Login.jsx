@@ -8,26 +8,26 @@ const Login = props => {
 
   return (
   <div id='loginpage'>
+
+    <div className="login-flex">
+    <div className="login-right">
     <h1>KATS</h1>
-    <Link to={'/confirmation'}>
+    {/* <Link to={'/confirmation'}>
       <button
         type="button"
       >
         confirmation page
       </button>
-    </Link>
-    <Link to={'/shop'}>
+    </Link> */}
+    {/* <Link to={'/shop'}>
       <button 
         type="button"
       >
       Just let me into the Shop
       </button>
-    </Link>
+    </Link> */}
 
-    <ul className="nav nav-tabs">
-      <button id="login"><a href="#a" data-toggle="tab">Log In</a></button>
-      <button id="signup"><a href="#b" data-toggle="tab">Sign Up</a></button>
-    </ul>
+
 
     <div className="tab-content">
       <div className="tab-pane active" id="a">
@@ -55,8 +55,14 @@ const Login = props => {
         </form>
       </div>
     </div>
+    <ul className="nav nav-tabs">
+      <button id="login"><a href="#a" data-toggle="tab">Log In</a></button>
+      <p>or</p>
+      <button id="signup"><a href="#b" data-toggle="tab">Sign Up</a></button>
+    </ul>
+    </div>
 
-    <div>
+    <div className="login-pusheen">
       <img src={KATSlogo}></img>
       
       {/* {fetch('/')
@@ -69,6 +75,7 @@ const Login = props => {
       {/* I think we can do our routing like this
       <img src={`/uploads/${img.img.path}`} /> */}
     </div>
+  </div>
   </div>
 )};
 

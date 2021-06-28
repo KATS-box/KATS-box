@@ -75,6 +75,7 @@ class Checkout extends Component {
         return (
           
         <div>
+          <div className="checkout-header">
           <Header />
           <h2>Checkout</h2>
 
@@ -85,8 +86,10 @@ class Checkout extends Component {
               not ready to purchase yet?
             </button>
           </Link>
-
-          <div>
+          </div>
+          
+          <div className="checkout-flex">
+          <div className="checkout-cart">
             <h2>{document.cookie.split('=')[1]}'s Cart</h2>
             <hr/>
             {'IMPORT CART ITEM HERE'}
@@ -236,6 +239,9 @@ class Checkout extends Component {
             </form>
         </div>
         </div>
+
+        </div>
+
         )
       }
 };
