@@ -70,9 +70,12 @@ class Box extends Component {
               <button
               onClick={() => {
                 fetch('/deleteItem', {
-                  method: 'DELETE',
+                  method: 'PUT',
                   headers: 'application/json',
-                  body: cartContents[el],
+                  body: {
+                    item: cartContents[el],
+                    username: document.cookie.split('=')[1],
+                  }
                 })
               }}
               >
@@ -119,7 +122,7 @@ class Box extends Component {
 
             Subtotal: ${this.state.cartSubtotal}
             <br></br>
-            <Link to={'/shop/checkout'}>
+            <Link to={'/checkout'}>
               <button
                 type="button"
               >

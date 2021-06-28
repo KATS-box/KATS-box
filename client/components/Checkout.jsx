@@ -1,37 +1,100 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header.jsx'
 
-const Checkout = props => {
-  
 
-  return (
-  <div>
-    <Header />
-    <div className="checkout-header">
-    <h2>Checkout</h2>
 
-    <Link to={'/shop'}>
-      <button
-        type="button"
-      >
-        not ready to purchase yet?
-      </button>
-    </Link>
-    </div>
-    <div className="checkout-flex">
-    <div className="checkout-cart">
-      My Cart
+class Checkout extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  
+      cartItemsState:[],
+      cartSubtotal: 0,
+    }
+  }
 
-      {'IMPORT CART ITEM HERE'}
-      
+  componentDidMount() {
 
-      <hr/>
-      Subtotal: {'whatever is the total price added from database'}
-      Tax: {'tax calc'}
-      Shipping: always free
-      Total: {'subtotal + tax'}
-    </div>
+    let cartContents;
+
+    const cartItems = [];
+    let subTotal = 0;
+
+    const renderCart = () => {
+      for(const el in cartContents) {
+        console.log(el,cartContents[el])
+        if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
+
+          if(el[0] === 's') subTotal += 30.95
+          if(el[0] === 'm') subTotal += 39.95
+          if(el[0] === 'l') subTotal += 47.95
+
+          cartItems.push(    
+            <div>    
+              <div className='cartItems'>
+                <p>{el}:{cartContents[el]}</p>
+              </div>
+              {/* <button
+              onClick={() => {
+                fetch('/deleteItem', {
+                  method: 'DELETE',
+                  headers: 'application/json',
+                  body: cartContents[el],
+                })
+              }}
+              >
+                delete
+              </button> */}
+            </div>
+          )
+        }
+      }
+      this.setState({cartItemsState:cartItems})
+      this.setState({cartSubtotal:subTotal})
+    }
+
+    fetch(`/getCart/:${document.cookie.split('=')[1]}`)
+            .then(data => data.json())
+            .then(data => {
+              console.log(data)
+              cartContents = data
+            })
+            .then(() => renderCart())
+          
+  }
+
+  render() {
+
+        return (
+          
+        <div>
+          <Header />
+          <h2>Checkout</h2>
+
+          <Link to={'/shop'}>
+            <button
+              type="button"
+            >
+              not ready to purchase yet?
+            </button>
+          </Link>
+
+          <div>
+            <h2>{document.cookie.split('=')[1]}'s Cart</h2>
+            <hr/>
+            {'IMPORT CART ITEM HERE'}
+            {this.state.cartItemsState}
+
+            <hr/>
+            <strong>Subtotal:</strong> ${this.state.cartSubtotal.toFixed(2)}
+            <br/>
+            <strong>Taxes:</strong>${(this.state.cartSubtotal * 0.08).toFixed(2)}
+            <br/>
+            <strong>Shipping:</strong> Free Shipping (3 to 5 Business Days)
+            <br/>
+            <strong>Total:</strong> ${(this.state.cartSubtotal * 1.08).toFixed(2)}
+            <br/>
+          </div>
 
     <div className="mb-2 top">
             <form method="POST" action='/shop/checkout'>
@@ -168,7 +231,9 @@ const Checkout = props => {
         </div>
   </div>
 
-  )
+
+        )
+      }
 };
 
 export default Checkout;
