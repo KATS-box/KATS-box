@@ -33,7 +33,7 @@ const Checkout = props => {
     </div>
 
     <div className="mb-2 top">
-            <form action="">
+            <form method="POST" action='/shop/checkout'>
 
               <h3>Customer Information</h3>
                 <div className="form-row">

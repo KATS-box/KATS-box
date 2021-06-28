@@ -65,11 +65,17 @@ class Shop extends Component {
               show: false,
             },
             }}>
-            <button
+            {/* <button
               type="button"
             >
               Japanese Box
-            </button>
+            </button> */}
+            <div className="card" style={{width:500}}>
+              <img src="https://i.etsystatic.com/29289050/r/il/aa1f68/3099365245/il_1588xN.3099365245_gwl8.jpg" class="card-img-top" alt="..."/>
+              <div className="card-body">
+                <p className="card-text">Japanese Box</p>
+              </div>
+            </div>
           </Link>
           <Link to={{
             pathname:'/shop/box/:korean-box',
@@ -79,11 +85,17 @@ class Shop extends Component {
               show: false,
             },
             }}>
-            <button
+            {/* <button
               type="button"
             >
               Korean Box
-            </button>
+            </button> */}
+            <div className="card" style={{width:500}}>
+              <img src="https://images-na.ssl-images-amazon.com/images/I/A1eww2XijJL._SX569_.jpg" class="card-img-top" alt="..."/>
+              <div className="card-body">
+                <p className="card-text">Korean Box</p>
+              </div>
+            </div>
           </Link>
           <Link to={{
             pathname:'/shop/box/:chinese-box',
@@ -93,11 +105,17 @@ class Shop extends Component {
               show: false,
             },
             }}>
-            <button
+            {/* <button
               type="button"
             >
               Chinese Box
-            </button>
+            </button> */}
+            <div className="card" style={{width:500}}>
+              <img src="" class="card-img-top" alt="..."/>
+              <div className="card-body">
+                <p className="card-text">Chinese Box</p>
+              </div>
+            </div>
           </Link>
           <Link to={{
             pathname:'/shop/box/:mixed-box',
@@ -107,11 +125,17 @@ class Shop extends Component {
               show: false,
             },
             }}>
-            <button
+            {/* <button
               type="button"
             >
               Mixed Box
-            </button>
+            </button> */}
+            <div className="card" style={{width:500}}>
+              <img src="" class="card-img-top" alt="..."/>
+              <div className="card-body">
+                <p className="card-text">Mixed Box</p>
+              </div>
+            </div>
           </Link>
           <Link to={'/shop/checkout'}>
             <button
@@ -120,6 +144,73 @@ class Shop extends Component {
               Checkout
             </button>
           </Link>
+          <section>
+     <div id='about'>
+ 
+     <div id='logo'>
+ 
+       <h2>Social</h2>
+ 
+       <a id='youtube' href = "https://www.youtube.com/" target = "_blank"><i className="fab fa-youtube"></i></a>
+ 
+       <a id='insta' href = "https://www.instagram.com/" target = "_blank"><i className="fab fa-instagram"></i></a>
+ 
+       <a id='twitter' href = "https://www.twitter.com/" target = "_blank"><i className="fab fa-twitter"></i></a>
+ 
+       <a id='facebook' href = "https://www.facebook.com/" target = "_blank"><i className="fab fa-facebook"></i></a>
+ 
+       <a id='pinterest' href = "https://www.pinterest.com/" target = "_blank"><i className="fab fa-pinterest"></i></a>
+ 
+       <a id='snapchat' href = "https://www.snapchat.com/" target = "_blank"><i className="fab fa-snapchat"></i></a>
+ 
+     </div>
+ 
+     <div id='contact'>
+       <p>KATS-box &copy; 2021,</p>
+       <p>Contact Us: (555) 555-5555</p>
+       <p>katsbox118@outlook.com</p>
+       <p>KATS-box LLC, a Kaden Feeding Group Company.  All rights reserved.</p>
+     </div>
+ 
+ 
+     <div id='moreInfo'>
+       <h2 id='help'>Help</h2>
+       <ul>
+         <li><a href="#">FAQS</a></li>
+         <li><a href="#">Contact Us</a></li>
+         <li><a href="#">Feedbacks</a></li>
+         <li><a href="#">Cancel your Order</a></li>
+         <li><a href="#">Refund policies</a></li>
+         <li><a>Privacy Policy</a></li>
+       </ul>
+ 
+       <h2 id ='explore'>Explore</h2>
+ 
+       <ul>
+         <li><a href="#">Japanese Boxes</a></li>
+         <li><a href="#">Korean Boxes</a></li>
+         <li><a href="#">Chinese Boxes</a></li>
+         <li><a href="#">Mixed Boxes</a></li>
+       </ul>
+ 
+     </div>
+ 
+       <div id="subscribe">
+         <form action="homepage.php" method ="GET">
+         <h2 id="subscribeHeader">Subscribe to Us</h2>
+         <p id="subscribeWord">See The Latest On Our Instagram Feed, And Connect With Us On Facebook, Twitter & More, Subscribe to Unlock 10% Off Your First Order</p>
+         <input type="text" placeholder="Name" name="name" required autoFocus/>
+         <input type="text" placeholder="Email Address" name="mail" required/>
+         <label>
+           <input type="checkbox" defaultChecked="checked" name="subscribe"/> I accept the Privacy Policy and the Terms of Service
+         </label>
+         <input type="submit" value="Subscribe Now"/>
+         </form>
+       </div>
+ 
+     </div>
+     
+   </section>
         </header>
       </section>
     );
