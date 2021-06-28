@@ -116,7 +116,7 @@ class Checkout extends Component {
           <div>
             <h2>{document.cookie.split('=')[1]}'s Cart</h2>
             <hr/>
-            {'IMPORT CART ITEM HERE'}
+
             {this.state.cartItemsState}
 
             <hr/>
@@ -236,7 +236,7 @@ class Checkout extends Component {
                   <h3>Payment Information</h3>
                   <div className="form-group">
                       <label htmlFor="cardname"></label>
-                      <input name= "cardname" type="number" id="cardname" placeholder="Name on Card *" required className="form-control"></input>
+                      <input name= "cardname" type="text" id="cardname" placeholder="Name on Card *" required className="form-control"></input>
                   </div>
 
                   <div className="form-group">

@@ -10,7 +10,7 @@ class Box extends Component {
     super(props);
     this.state = {
       chosenBox: props.location.state.chosenBox,
-      boxList:props.location.state.boxList,
+      currentBox:props.location.state.boxList,
       boxListurls:props.location.state.boxListurls,
       loggedIn: props.location.state.loggedIn,
       cart:props.location.state.cart,
@@ -181,7 +181,7 @@ class Box extends Component {
             <p>{this.state.desc}</p>
             
 
-            <form className='cartform' method="POST" action={`/${this.state.boxList}Box`}>
+            <form className='cartform' method="POST" action={`/${this.state.currentBox}Box`}>
               <label>Select a size</label>
               <div className="btn-group" data-toggle="buttons">
                 <label className="btn btn-primary">
