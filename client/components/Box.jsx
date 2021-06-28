@@ -14,7 +14,6 @@ class Box extends Component {
       loggedIn: props.location.state.loggedIn,
       cart:props.location.state.cart,
       show: props.location.state.show,
-
       desc: 'description',
       itemurls: 'https://pusheen.com/wp-content/uploads/2019/08/Business.jpg',
       items:'choose a box size'
@@ -33,7 +32,7 @@ class Box extends Component {
 
     const urls = this.state.itemurls
     const items = this.state.items
-
+    console.log(urls,items)
 
     const spliturls = urls.split(',')
     const splititems = items.split(',')
@@ -131,37 +130,41 @@ class Box extends Component {
 
 
             
-            <form method="PUT" action={`/shop/${this.state.boxList}Box`}>
+            <form className='cartform' method="PUT" action={`/shop/${this.state.boxList}Box`}>
+              <label>Select a size</label>
+              <div className="btn-group" data-toggle="buttons">
+                <label className="btn btn-primary">
+                  <input type="radio" name="1" id="1" 
+                    onClick={() => {
+                      console.log('clicked')
+                      fetch('/shop/:smalljbox')
+                      .then(data => data.json())
+                      .then(data => this.setState({desc:data.description, items:data.itemnames, itemurls:data.imageurls}))
+                      .then(() => console.log('ive been clicked small'))
+                      .catch((err) => console.log(err))
+                    }}
+                  ></input>
+                  Small
+                </label>
+                <label className="btn btn-primary active">
+                  <input type="radio" name="2" id="2" defaultChecked></input>
+                  Medium
+                </label>
+                <label className="btn btn-primary">
+                  <input type="radio" name="3" id="3"></input>
+                  Large
+                </label>
+              </div>
 
-            <label>Select a size</label>
-            <div className="btn-group" data-toggle="buttons">
-              <label className="btn btn-primary">
-                <input type="radio" name="options" id="1" 
-                  onClick={() => {
-                    fetch('/shop/:smalljbox')
-                    .then(data => data.json())
-                    .then((data) => this.setState({desc:data.imageurl}))
-                    .then(() => console.log('ive been clicked small'))
-                    .catch((err) => console.log(err))
-                  }}
-                />Small
-              </label>
-              <label className="btn btn-primary active">
-                <input type="radio" name="options" id="2" defaultChecked/>Medium
-              </label>
-              <label className="btn btn-primary">
-                <input type="radio" name="options" id="3"/>Large
-              </label>
-            </div>
-
-            <label>qty :</label>
-            <select id="qty" name="qty" required>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+              <label>qty :</label>
+              <select id="qty" name="qty" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <input type="hidden" id="custId" name="username" value={document.cookie.split('=')[1]}></input>
               <input type='submit'></input>
             </form>
           </div>
@@ -181,10 +184,6 @@ class Box extends Component {
             back
           </button>
         </Link>
-        <div>
-          {console.log(document.getElementsByClassName('active'))}
-          hello?
-        </div>
       </div>
     )
   };
