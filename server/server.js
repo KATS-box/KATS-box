@@ -306,41 +306,60 @@ app.get('/largembox', async (req, res) => {
 //post to checkout page, to add into the sales table in database
 app.post('/checkout', async (req, res) => {
     try{
-        console.log(req.body)
-        const email = req.body.email;
-        const username = req.body.username; 
-        const total = req.body.total;
-
-        const results = await db.query("INSERT INTO sales (username, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallcbox, mediumcbox, largecbox, smallmbox, mediummbox, largembox, progress, price) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *;", [req.body.username, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largekbox, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox, 'order received', req.body.price]);
-
-        // Then clear the cart;
-        const clearCart = await db.query("UPDATE carts SET smallcbox=$1, mediumcbox=$2, largecbox=$3, smalljbox=$4, mediumjbox=$5, largejbox=$6, smallkbox=$7, mediumkbox=$8, largekbox=$9, smallmbox=$10, mediummbox=$11, largembox=$12 WHERE username=$13 returning *;",[0,0,0,0,0,0,0,0,0,0,0,0,username]);
-        res.status(200);
-
-        //then send mail:
-        const options = {
-            from: "katsbox118@outlook.com",
-            to: email,
-            subject: `Thank you for your purchase ${username}! A follow up email will be send when your order is processed.`,
-            text: `
-            Here is your receipt:
-
-
-            `
-        };
+        console.log(req.body,'this is req.body')
+        const username = req.body.username;
+  
+        const subtotal = req.body.subtotal;
+  
+  
+        // const results = await db.query("INSERT INTO sales (username, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallcbox, mediumcbox, largecbox, smallmbox, mediummbox, largembox, progress, price) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *;", [req.body.username, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largekbox, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox, 'order received', req.body.price]);
+  
+        const userCart = await db.query("SELECT * FROM carts WHERE username = $1", [username]);
+  
+        console.log(userCart.rows[0]);
+  
+        const receipt = {};
         
-        transporter.sendMail(options, function(err, info) {
-            if (err) {
+        for (const [key, value] of Object.entries(userCart.rows[0])) {
+            console.log(`${key}: ${value}`);
+  
+
+  
+            if (typeof value === 'number' && value !== 0) {
+                receipt[key] = value;
+            }
+          }
+  
+                //send mail:
+                const options = {
+                    from: "katsbox118@outlook.com",
+                    to: req.body.email,
+                    subject: `Thank you for your purchase ${username}! A follow up email will be send when your order is processed.`,
+                    text: `
+                    Here is your receipt: ${receipt}, subtotal : ${subtotal}.
+                   
+                    Thank you for shopping with us!
+                    `
+                };
+               
+                transporter.sendMail(options, function(err, info) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    } console.log("Sent", info.response)
+                });
+                //
+                        // Then clear the cart;
+        const clearCart = await db.query("UPDATE carts SET smallcbox=$1, mediumcbox=$2, largecbox=$3, smalljbox=$4, mediumjbox=$5, largejbox=$6, smallkbox=$7, mediumkbox=$8, largekbox=$9, smallmbox=$10, mediummbox=$11, largembox=$12 WHERE username=$13 returning *;",[0,0,0,0,0,0,0,0,0,0,0,0,req.body.username]);
+        
+                res.status(201).redirect('/confirmation');
+            } catch(err) {
                 console.log(err);
-                return;
-            } console.log("Sent", info.response)
-        });
-        //
-        res.status(201).redirect('/confirmation');
-    } catch(err) {
-        console.log(err);
-    }
-});
+            }
+  
+  
+
+ });
 
 
 // get cart when click on the bag icon: 

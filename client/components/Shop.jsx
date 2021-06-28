@@ -40,15 +40,46 @@ class Shop extends Component {
       for(const el in cartContents) {
         console.log(el,cartContents[el])
         if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
+          let size;
+          let sizePrice;
+          if(el[0] === 's') {
+            sizePrice = 30.95
+            subTotal += 30.95 * cartContents[el]
+            size = 'small'
+          }
+          if(el[0] === 'm') {
+            sizePrice = 39.95
+            subTotal += 39.95 * cartContents[el]
+            size = 'medium'
+          }
+          if(el[0] === 'l') {
+            sizePrice = 47.95
+            subTotal += 47.95 * cartContents[el]
+            size = 'large'
+          }
 
-          if(el[0] === 's') subTotal += 30.95
-          if(el[0] === 'm') subTotal += 39.95
-          if(el[0] === 'l') subTotal += 47.95
+          const itemString = el.slice(-4)
+
+          let box;
+          if(itemString[0] === 'j') box = 0
+          if(itemString[0] === 'k') box = 1
+          if(itemString[0] === 'c') box = 2
+          if(itemString[0] === 'm') box = 3
+          console.log(this.state.boxListurls[box])
 
           cartItems.push(    
             <div>    
               <div className='cartItems'>
-                <p>{el}:{cartContents[el]}</p>
+                <img src={this.state.boxListurls[box]}/>
+                <p>
+                  box:{this.state.boxList[box]} 
+                  <br/>
+                  size:{size} 
+                  <br/>
+                  qty: {cartContents[el]}
+                  <br/>
+                  price: ${(sizePrice * cartContents[el]).toFixed(2)}
+                  </p>
               </div>
               {/* <button
               onClick={() => {

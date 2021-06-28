@@ -12,6 +12,7 @@ class Checkout extends Component {
       cartSubtotal: 0,
       boxListurls:['https://vickyagain.files.wordpress.com/2020/10/east-asian-snacks.png?w=1024', 'https://d15kbsmiqz0zlr.cloudfront.net/wp-content/uploads/2016/05/snack-thumbnail-scaled.jpg'
         , 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://storage.googleapis.com/smstl/202122/1759/asian-snacks-market-grocery-store-st-louis-lg.jpg'],
+        boxList:['Japanese', 'Korean', 'Chinese', 'Mixed'],
     }
   }
 
@@ -26,20 +27,46 @@ class Checkout extends Component {
       for(const el in cartContents) {
         console.log(el,cartContents[el])
         if(cartContents[el] !== 0 && typeof cartContents[el] !=='string') {
+          let size;
+          let sizePrice;
+          if(el[0] === 's') {
+            sizePrice = 30.95
+            subTotal += 30.95 * cartContents[el]
+            size = 'small'
+          }
+          if(el[0] === 'm') {
+            sizePrice = 39.95
+            subTotal += 39.95 * cartContents[el]
+            size = 'medium'
+          }
+          if(el[0] === 'l') {
+            sizePrice = 47.95
+            subTotal += 47.95 * cartContents[el]
+            size = 'large'
+          }
 
-          if(el[0] === 's') subTotal += 30.95
-          if(el[0] === 'm') subTotal += 39.95
-          if(el[0] === 'l') subTotal += 47.95
+          const itemString = el.slice(-4)
 
-          console.log('this is el -5', el.slice(-5))
-          const itemString = el.slice(-5)
-
-          // if()
+          let box;
+          if(itemString[0] === 'j') box = 0
+          if(itemString[0] === 'k') box = 1
+          if(itemString[0] === 'c') box = 2
+          if(itemString[0] === 'm') box = 3
+          console.log(this.state.boxListurls[box])
 
           cartItems.push(    
             <div>    
               <div className='cartItems'>
-                <p>{el}:{cartContents[el]}</p>
+                <img src={this.state.boxListurls[box]}/>
+                <p>
+                  box:{this.state.boxList[box]} 
+                  <br/>
+                  size:{size} 
+                  <br/>
+                  qty: {cartContents[el]}
+                  <br/>
+                  price: ${(sizePrice * cartContents[el]).toFixed(2)}
+                  </p>
               </div>
               {/* <button
               onClick={() => {
@@ -92,7 +119,7 @@ class Checkout extends Component {
           <div className="checkout-cart">
             <h2>{document.cookie.split('=')[1]}'s Cart</h2>
             <hr/>
-            {'IMPORT CART ITEM HERE'}
+
             {this.state.cartItemsState}
 
             <hr/>
@@ -212,7 +239,7 @@ class Checkout extends Component {
                   <h3>Payment Information</h3>
                   <div className="form-group">
                       <label htmlFor="cardname"></label>
-                      <input name= "cardname" type="number" id="cardname" placeholder="Name on Card *" required className="form-control"></input>
+                      <input name= "cardname" type="text" id="cardname" placeholder="Name on Card *" required className="form-control"></input>
                   </div>
 
                   <div className="form-group">
