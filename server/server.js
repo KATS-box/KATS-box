@@ -302,13 +302,11 @@ app.post('shop/checkout', async (req, res) => {
         const username = req.body.username; 
         const total = req.body.total;
 
-
-
         const results = await db.query("INSERT INTO sales (userid, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallcbox, mediumcbox, largecbox, smallmbox, mediummbox, largembox, progress, price) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *;", [req.body.userid, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largekbox, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox, 'order received', req.body.price]);
 
         // Then clear the cart;
         const clearCart = await db.query("UPDATE carts SET smallcbox=$1, mediumcbox=$2, largecbox=$3, smalljbox=$4, mediumjbox=$5, largejbox=$6, smallkbox=$7, mediumkbox=$8, largekbox=$9, smallmbox=$10, mediummbox=$11, largembox=$12 WHERE username=$13 returning *;",[0,0,0,0,0,0,0,0,0,0,0,0,username]);
-        res.status(200).json(clearCart.rows[0])
+        res.status(200);
 
         //then send mail:
         const options = {
@@ -317,6 +315,8 @@ app.post('shop/checkout', async (req, res) => {
             subject: `Thank you for your purchase ${username}! A follow up email will be send when your order is processed.`,
             text: `
             Here is your receipt:
+
+
             `
         };
         
@@ -522,30 +522,55 @@ app.post('/MixedBox', async (req, res) => {
     }
 });
 
-app.put('/shop/MixedBox/Delete', async (req, res) => {
+app.put('/deleteItem', async (req, res) => {
 
-    let obj = Object.keys(req.query);
-    let boxSize = obj[0];
-    let quantity = req.query[obj[1]];
-    let username = req.query[obj[2]];
+    let name = req.body.item;
+    let username = req.body.username;
+
     try{
-        if(boxSize === '1') {
-            let updateRow = smallmbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '2') {
-            let updateRow = mediummbox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        } else if (boxSize === '3') {
-            let updateRow = largembox;
-            const results = await db.query("UPDATE carts SET $1 = $2 WHERE username = $3 returning *;", [updateRow, quantity, username]);
-            res.status(200).json(results.rows[0])
-        }
+        if(name === 'smallkbox') {
+            const results = await db.query("UPDATE carts SET smallkbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'smalljbox') {
+            const results = await db.query("UPDATE carts SET smalljbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'smallcbox') {
+            const results = await db.query("UPDATE carts SET smallcbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'smallmbox') {
+            const results = await db.query("UPDATE carts SET smallmbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'mediumcbox') {
+            const results = await db.query("UPDATE carts SET mediumcbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'mediumjbox') {
+            const results = await db.query("UPDATE carts SET mediumjbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'mediumkbox') {
+            const results = await db.query("UPDATE carts SET mediumkbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'mediummbox') {
+            const results = await db.query("UPDATE carts SET mediummbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'largecbox') {
+            const results = await db.query("UPDATE carts SET largecbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'largembox') {
+            const results = await db.query("UPDATE carts SET largembox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'largekbox') {
+            const results = await db.query("UPDATE carts SET largekbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } else if (name === 'largejbox') {
+            const results = await db.query("UPDATE carts SET largejbox = $1 WHERE username = $2 returning *;", [0, username]);
+            res.status(200)
+        } 
     } catch(err) {
-        console.log('Error found in get method to /shop/MixedBox', err); 
+        console.log('Error found in get method to /deleteCart', err); 
     }
 });
+
+
 
 
 app.listen(PORT,  ()=> {
