@@ -31,6 +31,12 @@ body {
     color: rgba(0, 0, 0, 0.76);
 }
 
+.cartform {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+}
+
 .mainSection {
     padding: 40px;
 }
@@ -38,6 +44,7 @@ body {
 .all-items {
     display: flex;
     flex-wrap: wrap;
+    background-image: linear-gradient(to bottom right, #f7dbf0a1, #d4ebe7,#f7dbf0a1);
 }
 
 .fa-shopping-bag {
@@ -54,6 +61,8 @@ body {
 #loginpage {
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    width: 100vw;
     justify-content: space-between;
     /* align-items: center; */
 }
@@ -65,9 +74,19 @@ button {
     background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
 }
 
+button:hover {
+    background-image: linear-gradient(to bottom right, #F7DBF0, #CDF0EA);
+
+}
+
 input {
     background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
     box-sizing: 200px;
+}
+
+input:hover {
+    background-image: linear-gradient(to bottom right, #F7DBF0, #CDF0EA);
+
 }
 
 .allCards {
@@ -113,10 +132,66 @@ a {
     /* justify-content: space-around; */
 }
 
+.login-flex {
+    display: flex;
+    height: 90vh;
+    width: 100vw;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+}
+
+#help {
+    padding: 10px 0px 0px 0px;
+}
+
+/* .active {
+    display: flex;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* .tab-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+
+.login-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    width: 50vw;
+    height: 100vh;
+}
+
+.login-pusheen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f9f9f96c;
+    width: 50vw;
+    height: 100vh;
+}
+
+.login-pusheen img {
+    max-height: 1000px;
+    width: 100%;
+}
+
 .form-row input {
     background-image: linear-gradient(to bottom right, #F9F9F9,#f7dbf09d);
     color:black;
     width: 60vw;
+}
+
+.form-row input:hover {
+    background-image: linear-gradient(to bottom right, #f7dbf09d, #F9F9F9);
+
 }
 
 .checkout-header {
@@ -178,10 +253,10 @@ img {
     /* padding: 20px 10px; */
     display: flex;
     flex-direction: row;
-    background-color: #f8dceb;
-    margin: 10px 0px0px;
-    padding: 10px 0px;
-    justify-content: flex-start;
+    background-color: #f8dcebe1;
+    margin: 20px 0px;
+    padding: 30px 0px 0px 0px;
+    justify-content: center;
     /* align-content: flex-start; */
     /* align-items: center; */
 }
