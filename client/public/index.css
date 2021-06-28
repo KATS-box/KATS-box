@@ -1,5 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
+/* lightgreen --- #CDF0EA
+offwhite --- #F9F9F9
+lightpink --- #F7DBF0
+lightpurple --- #BEAEE2 */
+
+
 body {
-    background-color: #e1d3ed;
+    background-color: #F9F9F9;
 }
 
 #loginpage {
