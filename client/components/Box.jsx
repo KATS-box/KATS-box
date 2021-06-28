@@ -50,7 +50,7 @@ class Box extends Component {
 
 
     return (
-      <div>
+      <div className="box-page">
         <Header />
       
           {/* shopping cart modal */}
@@ -90,7 +90,7 @@ class Box extends Component {
 
 
 
-        <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2>
+        {/* <h2>This is in {this.state.boxList} box which is number {this.state.chosenBox}</h2> */}
         <div>
           <img src={this.state.boxListurls} />
           {/* <div class="MagicScroll" data-options="mode: carousel; height: 275px;">
@@ -106,7 +106,7 @@ class Box extends Component {
         </div> */}
           <div>
             <h1>{this.state.boxList} Snack Box</h1>
-            <h4>This is the {this.state.chosenBox}</h4>
+            {/* <h4>This is the {this.state.boxList} snack box</h4> */}
             <p>{this.state.desc}</p>
             
             <div className='itemImages'>

@@ -4,7 +4,39 @@ body {
 
 #loginpage {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    /* align-items: center; */
+}
+
+button {
+    border-radius: 7px;
+}
+
+.allCards {
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    row-gap: 0;
+    column-gap: 0;
+    /* display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    width: fit-content; */
+}
+
+.card-text {
+    color: rgb(88, 88, 245);
+}
+
+.card {
+    background-color: rgba(181, 255, 255, 0.616);
+    display: flex;
+}
+
+#moreInfo {
+    display: flex;
 }
 
 #form {
@@ -22,9 +54,11 @@ body {
     background: #f3f3f3;
     border: 1px solid lightgray;
     box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
-    width: 20rem
+    width: 20rem;
+    z-index: 1000;
 }
 
 img {
-    max-width: 300px;
+    max-height: 300px;
+    border-radius: 3px;
 }

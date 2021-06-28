@@ -10,7 +10,7 @@ class Shop extends Component {
     this.state = {
         chosenBox: 0,
         boxList:['Japanese', 'Korean', 'Chinese', 'Mixed'],
-        boxListurls:['https://images-na.ssl-images-amazon.com/images/I/A1eww2XijJL._SX569_.jpg', 'https://i5.walmartimages.com/asr/344297e3-cc4f-4237-bbc0-345f28fad62c.5c2d34acf304d4dadd71f44cabbedd34.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff', 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://images-na.ssl-images-amazon.com/images/I/81k1Z8RPG0L._SL1500_.jpg'],
+        boxListurls:['https://images-na.ssl-images-amazon.com/images/I/A1eww2XijJL._SX569_.jpg', 'https://i5.walmartimages.com/asr/344297e3-cc4f-4237-bbc0-345f28fad62c.5c2d34acf304d4dadd71f44cabbedd34.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff', 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://cdn.shopify.com/s/files/1/0768/4331/products/Supreme_Mystery_Box-E-800x72-prog-0.02blur_1024x1024.jpg?v=1604026680'],
         loggedIn: false,
         cart:[],
         show: false,
@@ -58,6 +58,7 @@ class Shop extends Component {
           
         <header className="pageHeader">
           <h2>Kaden's Asian Tasty Snacks</h2>
+          <div className='allCards'>
           <Link to={{
             pathname:'/shop/box/:japanese-box',
             state: {
@@ -142,6 +143,7 @@ class Shop extends Component {
               </div>
             </div>
           </Link>
+          </div>
           <Link to={'/shop/checkout'}>
             <button
               type="button"
@@ -149,6 +151,7 @@ class Shop extends Component {
               Checkout
             </button>
           </Link>
+  
           <section>
      <div id='about'>
  

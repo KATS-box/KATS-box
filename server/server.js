@@ -6,6 +6,7 @@ const path = require('path')
 const PORT = 3000;
 const nodemailer = require('nodemailer');
 const db = require('./models');
+// import { StaticRouter } from "react-router";
 
 
 const app = express();
@@ -67,9 +68,9 @@ app.post('/signup', async (req, res, next) => {
             const results = await db.query("INSERT INTO users (firstname, lastname, username, pass, email) values ($1, $2, $3, $4, $5) returning *;", [req.body.firstname, req.body.lastname, req.body.username, req.body.pass, req.body.email]);
 
             //create shopping cart for user upon sign up
-            const result3 = await db.query('select userid from users where username = $1', [username]);
 
-            const newCart = await db.query("INSERT INTO carts (userid, price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", ([parseInt(result3.rows[0]), 0, req.body.smallcbox, req.body.mediumcbox, req.body.largecbox, req.body.smalljbox, req.body.mediumjbox, req.body.largejbox, req.body.smallkbox, req.body.mediumkbox, req.body.largelbox, req.body.smallmbox, req.body.mediummbox, req.body.largembox]));
+            const newCart = await db.query("INSERT INTO carts (price, smallcbox, mediumcbox, largecbox, smalljbox, mediumjbox, largejbox, smallkbox, mediumkbox, largekbox, smallmbox, mediummbox, largembox, username) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *;", ([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, username]));
+
 
             res.status(200).cookie('username', req.body.username).redirect('/shop');
         //something already exists in the database:
@@ -117,7 +118,8 @@ app.post('/login', async (req, res, next) => {
 
         //if username is in database, get password to be checked;
         if (result1.rows.length !== 0) {
-            if (password === result2.rows[0]) {
+            console.log(result2.rows[0])
+            if (password === result2.rows[0].pass) {
                 res.status(200).cookie('username', req.body.username).redirect('/shop');
             } else {
                 res.status(200).json({
@@ -144,12 +146,14 @@ app.post('/login', async (req, res, next) => {
 //to get japanese box and its items to show up on the page, when you click on it!
 app.get('/shop/JapaneseBox', async (req, res) => {
     try{
+        let results
+        console.log(req.body)
         if(req.body.options === 'Small') {
-            const results = await db.query("select * from boxes WHERE boxname = $1;", ['smalljbox']);
+            results = await db.query("select * from boxes WHERE boxname = $1;", ['smalljbox']);
         } else if (req.body.options === 'Medium') {
-            const results = await db.query("select * from boxes WHERE boxname = $1;", ['mediumjbox']);
+            results = await db.query("select * from boxes WHERE boxname = $1;", ['mediumjbox']);
         } else {
-            const results = await db.query("select * from boxes WHERE boxname = $1;", ['largejbox']);
+            results = await db.query("select * from boxes WHERE boxname = $1;", ['largejbox']);
         }
         res.status(200).json(results.rows[0])
     } catch(err) {
