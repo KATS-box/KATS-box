@@ -60,6 +60,8 @@ body {
 
 button {
     border-radius: 7px;
+    padding:5px;
+    margin: 10px 10px;
     background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
 }
 
@@ -98,9 +100,52 @@ input {
 
 }
 
+/* p {
+    color: rgba(88, 88, 245, 0.911);
+} */
+
+a {
+    color: rgba(88, 88, 245, 0.911);
+}
+
 #moreInfo {
     display: flex;
     /* justify-content: space-around; */
+}
+
+.form-row input {
+    background-image: linear-gradient(to bottom right, #F9F9F9,#f7dbf09d);
+    color:black;
+    width: 60vw;
+}
+
+.checkout-header {
+    padding: 20px;
+}
+
+.checkout-cart {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 0px 20px;
+    max-width: 40%;
+    max-height: 50vh;
+    background-image: linear-gradient(to bottom right, #F9F9F9,#f7dbf09d);
+}
+
+.mb-2 {
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+    width: 100%;
+    background-image: linear-gradient(to bottom right, #F9F9F9, #F9F9F9,#f7dbf09d);
+}
+
+.checkout-flex {
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+    padding: 20px;
 }
 
 #form {
@@ -134,8 +179,8 @@ img {
     display: flex;
     flex-direction: row;
     background-color: #f8dceb;
-    margin: 0px;
-    padding: 0px;
+    margin: 10px 0px0px;
+    padding: 10px 0px;
     justify-content: flex-start;
     /* align-content: flex-start; */
     /* align-items: center; */
@@ -158,6 +203,14 @@ section.mainSection {
     padding: 10px 10px;
     margin: 20px 0px;
 } */
+
+.username {
+    background-image: linear-gradient(to bottom right, #F9F9F9,#f7dbf0b6);
+}
+
+.pass {
+    background-image: linear-gradient(to bottom right, #F9F9F9,#f7dbf0b6);
+}
 
 #subscribe {
     padding: 20px 10px;
@@ -228,7 +281,8 @@ img.card-img-top {
 }
 
 select#state {
-    background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0);
+/*     background-image: linear-gradient(to bottom right, #CDF0EA,#F7DBF0); */
+      background-image: linear-gradient(to bottom right, #F9F9F9,#f7dbf09a);
 }
 
 a {
