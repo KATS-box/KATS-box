@@ -122,7 +122,7 @@ class Box extends Component {
 
             Subtotal: ${this.state.cartSubtotal}
             <br></br>
-            <Link to={'/shop/checkout'}>
+            <Link to={'/checkout'}>
               <button
                 type="button"
               >

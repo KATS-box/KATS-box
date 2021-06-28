@@ -73,6 +73,15 @@ app.get('/shop', async (req, res) => {
     }
 })
 
+app.get('/checkout', async (req, res) => {
+    try {
+        console.log('send me the html please')
+        await res.sendFile(path.join(__dirname, '../client/public/index.html'))
+    } catch(err) {
+        console.log('Error found in get method to /home',err); 
+    }
+})
+
 //post request to signup page: get the username and email and pass sure they are not in the database yet!
 app.post('/signup', async (req, res, next) => {
     try{

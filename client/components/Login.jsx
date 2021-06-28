@@ -8,7 +8,7 @@ const Login = props => {
 
   return (
   <div id='loginpage'>
-    <Header />
+    <h1>KATS</h1>
     <Link to={'/confirmation'}>
       <button
         type="button"

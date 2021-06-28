@@ -74,9 +74,9 @@ class Shop extends Component {
         <Header />
         
 
-                  {/* shopping cart modal */}
+         {/* shopping cart modal */}
 
-                  <i className="fas fa-shopping-bag"
+         <i className="fas fa-shopping-bag"
           onClick={e => {
             console.log('click')
             this.showModal();
@@ -102,7 +102,7 @@ class Shop extends Component {
 
             Subtotal: ${this.state.cartSubtotal}
             <br></br>
-            <Link to={'/shop/checkout'}>
+            <Link to={'/checkout'}>
               <button
                 type="button"
               >
@@ -241,12 +241,13 @@ class Shop extends Component {
      </div>
  
        <div id="subscribe">
-         <form action="homepage.php" method ="GET">
+         <form action="/subscribe" method ="POST">
+           <input type="hidden" name="username" value={document.cookie.split('=')[1]}></input>
          <h2 id="subscribeHeader">Subscribe to Us</h2>
          <p id="subscribeWord">See The Latest On Our Instagram Feed, And Connect With Us On Facebook, Twitter & More, Subscribe to Unlock 10% Off Your First Order</p>
          <div>
         
-         <input type="text" placeholder="Name" name="name" required autoFocus/>
+         <input type="text" placeholder="Name" name="name" required/>
          <br></br>
          <input type="text" placeholder="Email Address" name="mail" required/>
          </div>

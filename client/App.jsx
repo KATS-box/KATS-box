@@ -6,6 +6,7 @@ import Box from './components/Box.jsx'
 import Shop from './components/Shop.jsx'
 import Login from './components/Login.jsx'
 import Confirmation from './components/Confirmation.jsx';
+import ScrollToTop from './components/ScrollToTop.js'
 
 
 class App extends Component {
@@ -16,28 +17,30 @@ class App extends Component {
         return (
             <div className="router">
                 <main>
-                    <Switch>
-                        <Route
-                            exact path="/"
-                            component={Login}
+                    <ScrollToTop>
+                        <Switch>
+                            <Route
+                                exact path="/"
+                                component={Login}
+                            />
+                            <Route
+                                exact path="/checkout"
+                                component={Checkout}
+                            />
+                            <Route
+                                path="/shop/box"
+                                component={Box}
+                            />
+                            <Route
+                                exact path="/shop"
+                                component={Shop}
+                            />
+                            <Route
+                            exact path="/confirmation"
+                            component={Confirmation}
                         />
-                        <Route
-                            exact path="/shop/checkout"
-                            component={Checkout}
-                        />
-                        <Route
-                            path="/shop/box"
-                            component={Box}
-                        />
-                        <Route
-                            exact path="/shop"
-                            component={Shop}
-                        />
-                        <Route
-                        exact path="/confirmation"
-                        component={Confirmation}
-                    />
-                    </Switch>
+                        </Switch>
+                    </ScrollToTop>
                 </main>
             </div>
         )
