@@ -588,8 +588,8 @@ app.post('/subscribe', async (req, res) => {
         const options = {
             from: "katsbox118@outlook.com",
             to: email,
-            subject: `Thank you for subscribing, ${username}`,
-            text: `Hi, ${name}`
+            subject: `Thank you for subscribing, ${username}.`,
+            text: `${name}, welcome to Kats Box! You've officially joined the app for exclusive deals on your favorite snacks, all in one place.`
         }
         
         transporter.sendMail(options, function(err, info) {
