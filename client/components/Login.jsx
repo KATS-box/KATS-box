@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useHistory  } from 'react-router-dom';
 import Header from './Header.jsx'
+import KATSlogo from './pictures/KATSlogo.png'
 
 const Login = props => {
   const history = useHistory();
@@ -56,7 +57,7 @@ const Login = props => {
     </div>
 
     <div>
-      <img src='https://pusheen.com/wp-content/uploads/2020/12/What-Sweet-Quiz-SocialResults_Donut-1-e1608220861325.jpg'></img>
+      <img src={KATSlogo}></img>
       
       {/* {fetch('/')
       .then(
