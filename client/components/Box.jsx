@@ -23,6 +23,8 @@ class Box extends Component {
       cartItemsState:[],
       cartSubtotal: 0,
       boxList:['Japanese', 'Korean', 'Chinese', 'Mixed'],
+      boxListurls:['https://vickyagain.files.wordpress.com/2020/10/east-asian-snacks.png?w=1024', 'https://d15kbsmiqz0zlr.cloudfront.net/wp-content/uploads/2016/05/snack-thumbnail-scaled.jpg'
+        , 'https://cdn.vox-cdn.com/thumbor/vSy5uI6FBcZSN9JktwlwhyroICo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21869467/group_shot_all.jpg', 'https://storage.googleapis.com/smstl/202122/1759/asian-snacks-market-grocery-store-st-louis-lg.jpg'],
     }
   }
 
@@ -119,6 +121,7 @@ class Box extends Component {
                 })
               }}
               ></i>
+
             </div>
           )
         }
@@ -178,7 +181,7 @@ class Box extends Component {
           </div>
 
           <div className="box-options">
-            <h1>{this.state.boxList} Snack Box</h1>
+            <h1>{this.state.currentBox} Snack Box</h1>
             <h2>{this.state.price}</h2>
             <p>{this.state.desc}</p>
             
