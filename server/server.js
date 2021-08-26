@@ -6,7 +6,6 @@ const path = require('path')
 const PORT = 3000;
 const nodemailer = require('nodemailer');
 const db = require('./models');
-// import { StaticRouter } from "react-router";
 
 
 const app = express();
